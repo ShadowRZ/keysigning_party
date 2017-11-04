@@ -1,0 +1,658 @@
+<html><head><title>GPG Keysigning Party HOWTO</title>
+<body bgcolor="#FFFFFF">
+
+<hr>
+<h1>GnuPG Keysigning Party HOWTO</h1>
+
+<h2><a href="http://www.cryptnet.net/people/vab/">V. Alex Brennen</a> (<a href="mailto:vab@cryptnet.net">vab@cryptnet.net</a>)</h2>v1.0.8, 09 May 2003
+
+<p><hr>
+<em>This document describes the protocol and methods for holding
+and participating in a PGP Key Signing party using the GNU PGP
+implementation, GnuPG.  It gives an explanation of key signing
+protocols, answers frequently asked questions, and explains how
+to go about generating your own keys as well as signing other's
+keys.</em>
+<hr>
+
+<h2><a href="#toc1">1. 大會概要</a></h3>
+<ul>
+<li><a href="#ss1.1">1.1 到底啥是金鑰簽署大會？</a>
+<li><a href="#ss1.2">1.2 什麼是金鑰簽署？</a>
+<li><a href="#ss1.3">1.3 什麼是信任網？</a>
+<li><a href="#ss1.4">1.4 金鑰簽章的運用範例</a>
+<li><a href="#ss1.5">1.5 為什麼我該把握參加金鑰簽署大會的機會？</a>
+</ul>
+<h2><a href="#toc2">2. 舉辦大會</a></h3>
+<ul>
+<li><a href="#ss2.1">2.1 主持人該做些什麼</a>
+<li><a href="#ss2.2">2.2 應該怎麼進行大會？</a>
+<li><a href="#ss2.3">2.3 發佈大會通告</a>
+<li><a href="#ss2.4">2.4 產生金鑰清單</a>
+<li><a href="#ss2.5">2.5 繪製信任網關係圖</a>
+</ul>
+<h2><a href="#toc3">3. 參與大會</a></h3>
+<ul>
+<li><a href="#ss3.1">3.1 參與者該做些什麼</a>
+<li><a href="#ss3.2">3.2 該帶什麼去會場？</a>
+<li><a href="#ss3.3">3.3 什麼不該帶？</a>
+<li><a href="#ss3.4">3.4 為什麼你不應該帶電腦</a>
+<li><a href="#ss3.5">3.5 產生你的金鑰對</a>
+<li><a href="#ss3.6">3.6 把妳的金鑰送到金鑰伺服器</a>
+<li><a href="#ss3.7">3.7 製作一份撤銷憑證</a>
+<li><a href="#ss3.8">3.8 簽署其他的金鑰</a>
+<li><a href="#ss3.9">3.9 撤銷你的金鑰對</a>
+</ul>
+<h2><a href="#toc4">4. Glossary of Terms</a></h2>
+<h2><a href="#toc5">5. Relevant Information and Sources for More Information</a></h2>
+<ul>
+<li><a href="#ss5.1">5.1 List of public key servers</a>
+<li><a href="#ss5.2">5.2 Links to related documents</a>
+<li><a href="#ss5.3">5.3 Related programs</a>
+<li><a href="#ss5.4">5.4 Related web sites</a>
+<li><a href="#ss5.5">5.5 Related RFCs</a>
+<li><a href="#ss5.6">5.6 Pictures from keysigning parties</a>
+</ul>
+<h2><a href="#toc6">6. About This Document</a></h2>
+<ul>
+<li><a href="#ss6.1">6.1 Versions</a>
+<li><a href="#ss6.2">6.2 Translations</a>
+<li><a href="#ss6.3">6.3 Contributors</a>
+</ul>
+<hr>
+
+<h2><a name="toc1">1. 大會概要</a></h3>
+<b><a name="ss1.1">1.1 到底啥是金鑰簽署大會？</a></b>
+
+<p>所謂的金鑰簽署大會，指的是一群都使用 PGP 加密系統的人，為了簽署彼此的金鑰而齊聚一堂。金鑰簽署大會不但能大幅拓展信任網，也能提供機會，讓人們討論跟強加密法、個人自由、個人主權、施用加密科技或跟日後自由加密軟體有關的政治及社會議題。
+
+<br>
+
+<p><b><a name="ss1.2">1.2 什麼是金鑰簽署？</a></b>
+
+<p>金鑰簽署是一種實際對附加在某把金鑰上的公鑰、及使用者 ID 封包加以簽署的數位簽署動作。實際的動作包含了去驗證給定的使用者 ID 及公鑰是否真的擁有該把金鑰，並搞清楚這個使用者 ID 實際上到底代表著誰。
+
+<p>妳可以對妳自己的公鑰和金鑰上的 ID 進行數位簽署，也能夠對別人的公鑰或相關的公鑰封包這麼做。
+
+<p>就某種意義來說，金鑰簽章可以被視為該把公鑰有效的證明；它們是第三方對公鑰及其附屬 ID 有效性的背書。這也正是金鑰簽署建立起信任網的方法。
+
+<p><b><a name="ss1.3">1.3 什麼是信任網？</a></b>
+
+<p>所謂的信任網，是一個用來描述一群金鑰間信任關係的詞彙。每一份金鑰簽章都是一個鏈結，或者說是信任網中的一條繩索。這樣的鏈結又稱做<i>信任路徑 (Trust Paths)</i>. 這種信任路徑可能會是雙向的，但也可能祇是單向而已。理想中的信任網應該要是任何人都與其他人雙向互相連結的；實際上每個人都相信每一把金鑰都確實屬於其持有者。信任網可以被當作是所有這種金鑰持有者間，信任路徑或鏈結的總和。讓我們舉一個實際看得見的例子，這兒就是我所屬的<a href="pgp_party/wot.example.jpg">[信任網關係圖]</a>。
+
+<p><b><a name="ss1.4">1.4 金鑰簽章的運用範例</a></b>
+
+<p>舉例來說，假設 Alice 和 Bob 各自用 GPG 打造了一副 PGP 金鑰，然後她們參加了一個 PGP 金鑰簽署大會。在這場大會上 Alice 和 Bob 驗證了彼此的金鑰資訊，稍後她們並簽署了彼此的金鑰。在預設的情況下， GPG 會自動地以相對應的私鑰簽署它所打造出來的每一把公鑰（譯註：這又稱作自我簽章）。所以現在 Alice 和 Bob 至少都有兩份簽章，能夠證實她們手上的金鑰確實屬於她們自己。 Alice 的金鑰被 Alice 自己和 Bob 的金鑰簽署過，而 Bob 的金鑰也被 Bob 自己和 Alice 簽署過。之後 Alice 和 Bob 又遇到了 Cathy 。 Cathy 也打造了一副金鑰對，並且告訴 Alice 及 Bob 說她將把她的金鑰寄給她們。但是 Alice 並不喜歡 Cathy ，也不希望 Bob 跟她進行加密通訊。於是 Alice 和 Cathy 同時打造了一副宣稱屬於 Cathy 的 PGP 金鑰，這兩副金鑰也都被寄給 Bob ，而兩副金鑰上也都祇有一份來自各自相對應私鑰的簽章。 Bob 並不曉得到底哪一把金鑰纔真的是 Cathy 的。 Cathy 聽說 Bob 收到了兩份金鑰，於是開始懷疑起 Alice 。這下子 Cathy 可生氣了，她想要增加能用來對抗 Alice 詭計的資訊。為了要取得這樣的資訊， Cathy 就得要讓 Alice 和 Bob 間的加密通訊給暴露出來。因此， Cathy 決定偽造一封由 Alice 寄給 Bob 的信件，告訴他 Alice 打造了一副新的金鑰。在這封偽造信件裡， Cathy 附上了一把 Alice 的「新的」公鑰（而這把公鑰實際上是由 Cathy 自己打造的假金鑰）。然而 Bob 顯然能夠確定這祇是個詭計，因為即使 Bob 現在手上有兩把宣稱是屬於 Alice 的金鑰，但是其中一把卻由多人（他自己和 Alice ）簽署過以證實它真的屬於 Alice ，而另一把 ─ 由 Cathy 打造的偽金鑰 ─ 卻祇有來自自己的簽章。
+
+<p>上面這個例子已經相當單純了，實際的情況絕對可以複雜得多。妳可以閱讀 PGP 常見問答集或 PKI 上的好書，來取得解說更為詳盡的資訊。上述的例子祇用來清楚地解釋金鑰簽署的基本概念和其價值。由於 Bob 和 Alice 間互相連接的信任網，使得 Cathy 沒辦法引入 Alice 的假金鑰對。
+
+<p>然而簽章及信任網並不能擔保可信任的金鑰。舉例來說，當 Bob 和 Alice 第一次遇見 Cathy 時，假設 Cathy 的某個朋友 Donald 已經跟 Cathy 在一起了，而 Donald 打造了 Alice 和 Bob 的假金鑰，並且用自己的金鑰跟兩副假金鑰彼此加以簽署，讓兩把假金鑰看起來有三份簽章，再把這對金鑰寄給 Cathy 。緊接著 Cathy 就會面臨不良的金鑰及簽章。金鑰簽署要怎麼幫助 Cathy 抵抗這樣的攻擊呢？呃，讓我們假設所有的人都透過金鑰伺服器來交換金鑰，所以如果 Cathy 在金鑰伺服器上搜尋 Alice 和 Bob 的金鑰，她就會找到他們兩位的金鑰。如果 Alice 和 Bob 在金鑰簽署大會上蒐集到二十份金鑰簽章的話，顯然 Cathy 能夠比較信任被簽署了二十次的金鑰，而不是祇被簽署了三次的那一把。 Cathy 該能從額外公鑰的存在而得知更多事 ─ 所以她可以仔細地察看金鑰的打造日期以及公鑰背後的信任網。這二十把來自金鑰簽署大會的金鑰，根據打造日期的不同，也應該至少被簽署了二十次以上；通常被 Alice 和 Bob 的金鑰給簽署過的金鑰，也會被其他的金鑰所簽署。不過若 Donald 另外打造了二十副假金鑰對，並且用來產生假的信任網時，妳還是沒辦法祇靠這個辦法來鑑別。
+
+<p><b><a name="ss1.5">1.5 為什麼我該把握參加金鑰簽署大會的機會？</a></b>
+
+<p>有三個主要的理由，能夠說明為什麼妳應該要盡可能地參加金鑰簽署大會。
+
+<p>首先，可能也是最重要的理由是，妳應該要為了拓廣信任網而盡可能地參加金鑰簽署大會。內部越深入而緊密相連結的信任網，也就越難被整垮。這對於自由軟體社群來說格外明顯，無論是開發者或使用者皆然。社群成員依靠 PGP 科技來從密碼學上保護她們軟體套件、安全性建議和釋出通告的完整性。信任網的強壯與堅韌直接跟 PGP 提供給社群的保護強度成正比。
+
+<p>其次，金鑰簽署大會也能夠幫助其他人學著加入安全文化裡，並且也能鼓勵她們多加瞭解 PGP 跟相關的強編密法技術。為了要從強編密碼獲益，人們就得使用這些強編密法，而且還得妥善使用纔行。
+
+<p>最後一個理由是，金鑰簽署大會有助於建立社群。這能讓這些技術專家們聚在一起認識對方、網路並討論像是人民自由、加密權和網路管理等議題。討論之所以重要，不祇是因為討論是第一步，更因為這是實際行動之前的必備步驟。我撰寫本文件之時，世界上還沒有太多複雜的信任網。如果妳想要在當地建立起信任網的話，往往第一次出現的參與者日後就會變成當地的網際網路社群領導者跟政策決議者。祇要她們選擇了要這麼做，她們將會是能夠選擇要在當地機構建立起安全的強編密法科技與通訊協定的人們。這類科技與通訊協定的整合，將能夠引發像是 FBI 的食肉系統 (carnivore system) 那種技術上不可行而沒有下文的玩意兒的爭論。
+
+<hr>
+
+<h2><a name="toc2">2. Organizing The Party</a></h2>
+
+<p><b><a name="ss2.1">2.1 主持人該做些什麼</a></b>
+
+<p>要籌畫主持一場金鑰簽署大會並非太困難的事。然而除了要定期拜訪人們、挑選時間和場地外，主持人的金鑰簽署還必須比其他金鑰更為可靠纔行。除此之外，主持人該做的事通常還包括了要提供一份列有每個參與者的金鑰清單，以及決定整個大會的流程。
+
+<p><b><a name="ss2.2">2.2 應該怎麼進行大會？</a></b>
+
+<p>有兩種進行 PGP 金鑰簽署大會的方法 ─ 中心化的方法跟去中心化的方法。金鑰簽署的最佳辦法可以按照會參與的人數以及妳舉辦大會地點的氣氛來決定。大會的基本需求是要讓參與者能驗證彼此的金鑰以及身份。祇要能滿足這個最基本的需求，主辦人就能夠任意地從這兩種方法中加以調整大會的型態。
+
+<p>在中心化的大會中，一切都會比較嚴謹，適合用於少量或中等數量的參與者。在這種方式中，參與者會把她們的金鑰資訊寄給主辦人，而主辦人則會把這些資訊匯編成一份清單。每一位參與者抵達大會會場的時候就會領到一份金鑰清單的副本。在大會中，每一位參與者都會被主辦人先後請到台上，並且拿自己的金鑰指紋核對印在主持人給的清單上的指紋。如果參與者確定她們的金鑰跟印在紙張上的金鑰是同一副的話，就可以把她的金鑰指紋朗讀出來；這個時候其他的大會參與者就可以確認她們手上拿到的金鑰指紋正確無誤。如果這真的是正確吻合的金鑰指紋的話，參與者們就可以在紙條上加註記號。這是用來確認主持人沒有在產生紙條的過程中犯錯、或沒有任何帶有偽造金鑰資訊的紙條流入參與者手中的必要步驟。當每一個人都加註了這位參與者的金鑰後，主持人就會請下一位參與者上台，依此類推。當所有的金鑰都被驗證過後，主持人和所有的參與者就會被要求排成長長的一縱列，同時把各自的 ID 放在身前。這一縱列的第一個人於是開始沿著縱列走下去，並依序檢查每一個人的 ID 。如果這些 ID 都正確無誤，那麼這個一路走下去的人在檢查某個人的時候，這個人就會驗證這把金鑰，並且說這的確是她們在大會開始時所提供的金鑰，於是他就可以在自己的清單上加註第二個檢查記號。一旦某把金鑰上被標記了兩次記號後，就可以被簽署了。
+
+<p>去中心化的大會基本上就是每個人代表她自己。參與者將會被非正式的混在一起，然後自己去找出她還沒簽署的金鑰持有人。當她們相會之後，她們就會驗證彼此清單上各自的金鑰，並驗證彼此的身份證明。去中心化的大會能讓更多人相會，但卻很容易使得某些參與者並沒有真的去驗證將來要簽署的金鑰。在這種去中心化的大會中，主持人應該要鼓勵每個人都確定她們遇見了所有其他的人，並且驗證了金鑰，這是相當重要的事。雖然在去中心化的大會中，並不需要做出金鑰及指紋的清單，不過這麼做仍然有其好處。
+
+<p>中心化的大會相當適合拿來當作研討會午餐期間，安靜地在某人家中或餐廳等地舉行的金鑰簽署大會。去中心化的金鑰簽署大會則更適合於有相當大量的人參與的大會中，或者是用於某些嘈雜而難以控制的技客會出沒的大會裡。
+
+<p><b><a name="ss2.3">2.3 發佈大會通告</a></b>
+
+<p>這場大會越大越好。妳可以在當地的 LUG 郵遞論壇、其他妳所在跟電腦相關的論壇、甚至是在報紙上刊登廣告或發佈出版文宣來通告這場大會的舉辦。
+
+<p>如果妳纔剛開始在那一帶建立起信任網的話，試著請其他活躍的 PGP 使用者參與會是個好主意，因為她們將會是未來可能自己參加金鑰簽署大會的人。要找出這樣的人，妳可以試著先跟寄信到妳所在郵遞論壇時會附上 PGP 簽章的人談談，或者妳也可以在金鑰伺服器網路上搜尋電子郵件地址限定在妳當地的電子郵件。舉例來說，像是電子郵件地址以妳附近某所大學或某間大公司結尾的人，很可能就能帶領一大堆有興趣的參與者出現。
+
+<p>以下是一些簡單的通告範例：
+<ul>
+<li><a href="pgp_party/annc-example.html">PGP 金鑰簽署大會通告網頁</a>
+<li><a href="pgp_party/email-example.txt">PGP 金鑰簽署大會通告電子郵件</a>
+<li><a href="pgp_party/press-release-example.txt">PGP 金鑰簽署大會通告出版文宣</a>
+</ul>
+
+<p><b><a name="ss2.4">2.4 產生金鑰清單</a></b>
+
+<p>如果妳打算要舉辦的大會中，安排了要讓參與者擁有每一位出席大會的人的金鑰清單，那麼主持人就得先產生出這樣一份清單。這份清單看起來應該會被匯編成像這樣的格式：
+
+<table border="1"><tr><td>金鑰 ID</td><td>金鑰持有人</td><td>金鑰指紋</td><td>金鑰尺寸</td><td>金鑰種類</td><td>金鑰資訊是否吻合?</td><td>持有人身份是否吻合?</td></tr>
+<tr><td>992A4B3F</td><td>V. Alex Brennen  &#60; vab@cryptnet.net &#62; </td><td>0EC8 B0E3 052D FC4C 208F 76EB FA92 0973 992A 4B3F</td><td>1024</td><td>DSA</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
+
+<p>我撰寫了一支 perl 腳本來從 gpg 鑰匙圈產生像這樣的 HTML 文件。<a href="pgp_party/party-table.pl">這支用來產生金鑰簽署大會的金鑰清單的 perl 腳本</a>可以按照 GNU General Public License (GPL) 的授權內容任意使用。
+
+<p>這份金鑰清單的副本應該被印出來交給每一位出席金鑰簽署大會的人。主持人可以多列印一些這份清單的副本，也可以把這份清單寄出去或放在網頁上，讓出席者能夠自己印出來。
+
+<p><b><a name="ss2.5">2.5 繪製信任網關係圖</a></b>
+
+<p>沒有比彩色圖片更能吸引人們眼神焦點的東西了。因此當妳建立當地的信任網時，繪製信任網關係圖將能夠讓人們更有參與的動機，同時也能夠讓每個人都明白這整件事到底是如何實現的。
+
+<p>妳可以把這些資訊轉換成像 dot 檔案這種能夠餵給 dot 或 neato 這類繪圖程式的格式，然後輕易地把所有信任網中的金鑰跟簽章都建立成圖形。 Darxus 寫了一個 perl 腳本，能把鑰匙圈裡的金鑰跟簽章都轉換成 dot 格式的檔案，這個 perl 腳本也一樣地可以在 GPL 的授權下任意使用。為了要繪製出信任網，妳得下載 Darxus 的 <a href="http://www.ChaosReigns.com/code/sig2dot/sig2dot.pl">sig2dot.pl</a> 腳本，並從 AT&T; Research 下載
+<a href="http://www.research.att.com/sw/tools/graphviz/">graphviz</a>
+套件。由於執行這個腳本所需的記憶體數量限制，妳可能無法描繪出超過幾百個節點所構成的信任網。
+
+<p>從 gpg 鑰匙圈繪製信任網的指引也包含在 sig2dot.pl 腳本裡了，不過妳也可以從 Debian 鑰匙圈繪製頁面找到。喏，這兒就是<a href="pgp_party/wot.example.jpg">檢視信任網圖形的鏈結</a>，這個圖形就是由 sig2dot.pl 腳本和 neato 繪製程式所產生的。妳也可以在 <a href="http://www.ChaosReigns.com/code/sig2dot/">Debian 金鑰繪製頁面</a> 找到更多資訊。
+<hr>
+<h2><a name="toc3">3. 參與大會</a></h2>
+
+
+<b><a name="ss3.1">3.1 參與者該做些什麼</a></b>
+<ol>
+<li>打造一副金鑰對
+<li>把公開金鑰送到指定的金鑰伺服器上（或寄給主持人）
+<li>把公開金鑰資訊寄給主持人
+<li>在大會會場現身
+<li>驗證你的金鑰資訊
+<li>驗證其他人的金鑰資訊
+<li>驗證妳將要簽署的 ID 所屬的每個人的身份
+<li>為你已經確定身份的人的公開金鑰加簽
+<li>把簽署過的金鑰送回指定的金鑰伺服器上（或寄回給金鑰持有人）
+</ol>
+
+<b><a name="ss3.2">3.2 該帶什麼去會場</a></b>
+<ol>
+<li>自己 ─ 妳可不能以虛擬的形式出現在這場大會上
+<li>兩種確實存在且附有照片的身份證件 ─ 駕照跟護照會是很好的選擇
+<li>金鑰 ID ，金鑰類別，十六進位的金鑰指紋以及金鑰尺寸資訊，或者是一份驗證過的金鑰清單副本
+<li>一枝筆/鉛筆
+</ol>
+<b><a name="ss3.3">3.3 什麼<font color="#FF0000">不</font>該帶</a></b>
+<ol>
+<li>電腦
+</ol>
+
+<b><a name="ss3.4">3.4 為什麼妳不應該帶電腦</a></b>
+
+<p>妳不應該把電腦帶到大會現場，因為置換執行檔或進行系統修改，都是能輕易瓦解 PGP 系統的方法。
+
+<p>如果有人帶了一台攜帶式電腦到場，而每個人都用這台電腦來在會場簽署別人的金鑰的話，沒有人會知道這台電腦是否正執行著按鍵側錄程式、或修改過的 GPG 、修改過的 Linux 核心甚至是正在使用修改過的鍵盤；而上述的這些手段都將能拿來擷取使用這台電腦的人的私密金鑰。
+
+<p>在會場使用電腦同時也會讓妳暴露在更多像是肩窺 (shoulder-surfing) 的簡單攻擊手段，或像是弱私密金鑰打造、私密金鑰修改甚至是以病毒入侵並修改你的 GPG 執行檔以直接洩漏私密金鑰等這類複雜攻擊手段裡。
+
+<br>
+<br><b><a name="ss3.5">3.5 打造妳的金鑰對</a></b>
+
+<p>打造金鑰對的程序相當簡單。基本上來說妳就祇需要執行 <code>gpg --gen-key</code> 就行了。然而我建議妳最好同時也產生一份撤銷憑證，免得日後妳不幸無法存取秘密金鑰（像是弄丟了密碼串或遺失了秘密金鑰）時還有最後一條路可走。 產生撤銷憑證的指引可以在本文件的 <a href="#ss3.7">3.7</a> 節找到。
+
+<p>以下這份逐步指引是按照我所知道的實際使用情況原則而撰寫而成的，理論上也夠安全。舉例來說：
+<ul>
+<li>金鑰會以可能的最大尺寸打造，讓它們更能抵抗暴力攻擊
+<li>產生了一份撤銷憑證，讓金鑰遺失的時候得以撤銷公開金鑰
+</ul>
+<p>有些人也許就算不談論這些安全預警也能感到自在。舉例來說，如果妳有一台攜帶式電腦或家用電腦，而且妳用這台電腦來讀取所有的電子郵件的話，那麼也許妳會很愉快地把金鑰儲存在這台電腦的硬碟裡。同時妳也能放心地打造一副永遠不會過期的金鑰對，用來鑑別妳自己的身份並用於大量的通訊中 ─ 然後再打造另一副額外的金鑰對來處理極端敏感的通訊（妳真的該這麼做）。再次聲明，以下這份逐步指引是按照我所知最佳的實務安全性原則所撰寫而成的。妳並不需要完全按照這些步驟，祇需要打造一副金鑰對就行了。另一方面來說，如果妳跟我一樣也是對安全性極度偏執的怪胎的話，那麼按照這些指引至少能在短時間內，暫時快速地提供妳所需要的冷靜感。
+
+
+<p>以下這份逐步指引是按照我所知道最佳的實務安全性（極度偏執）原則所撰寫而成的。舉例來說：
+<ul>
+<li>金鑰會以可能的最大尺寸打造，讓它們更能抵抗暴力攻擊
+<li>金鑰打造的時候被賦予有限的壽命，以免它們最終被日益卓越的電腦科技所洩漏
+<li>金鑰被儲存在軟碟片上，以免它們被某個能存取妳電腦（無論是從遠端或實際上）的人所竊取
+<li>產生了一份撤銷憑證，讓金鑰遺失或被洩漏的時候得以撤銷公開金鑰
+</ul>
+
+<p>1)  到 www.gnupg.org 並下載最新版的 gnupg: gnupg-x.x.x.tar.gz
+
+<p>警告：請確定妳至少正在執行 1.0.6 版以後的 GnuPG 。 1.0.6 版以前的版本至少有一個顯著的安全性弱點。
+
+<p>2)  檢查 GnuPG 壓縮檔的 PGP 簽章和 MD5 加總檢查：
+
+<br>
+<p><code>
+bash$ gpg --verify gnupg-x.x.x.tar.gz.sig gnupg-x.x.x.tar.gz
+<br>bash$ md5sum gnupg-x.x.x.tar.gz
+</code>
+
+<p>3)  解開壓縮檔、進行組態、編譯然後加以安裝：
+
+<br>
+<p><code>
+bash$ tar xvzf gnupg-x.x.x.tar.gz
+<br>bash$ cd gnupg-x.x.x
+<br>bash$ ./configure
+<br>bash$ make
+<br>bash$ su
+<br>bash# make install
+<br>bash# exit
+<br>bash$ cd
+</code>
+
+<p>如果妳安裝 GnuPG 的系統會跟其他人共用的話，妳也許也會想要對 gpg 執行 setuid root 來讓它使用安全的記憶體。如果妳選擇要這麼做，那麼妳就應該預先警惕到可能的危險，並且用 md5 簽章跟 pgp 簽章來檢查妳手上的壓縮檔，以確保妳沒有安裝到被裝殖了特洛伊木馬的程式。
+
+<p>4)  拿一片準備用來存放妳的金鑰的磁片，並且先加以格式化。
+
+<p><code>
+bash$ /sbin/mkfs.ext2 /dev/fd0
+</code>
+
+<p>4a) 把軟碟掛上並在上面建立一個屬於妳的目錄，用來存放妳的金鑰：
+
+<br>
+<p><code>
+bash$ mount /mnt/floppy
+<br>bash$ mkdir /mnt/floppy/.gnupg
+</code>
+
+<p>有需要的話（依照妳系統上的 fd0 存取而異）：
+
+<p><code>
+bash$ chown &#60;your_uid&#62;:&#60;your_gid&#62; /mnt/floppy/.gnupg
+</code>
+
+<p>4b) 從妳的家目錄建立一個指向軟碟的符號鏈結
+
+<br>
+<p><code>
+bash$ ln -s /mnt/floppy/.gnupg .gnupg
+</code>
+
+<p>5)  打造妳的 gnupg 金鑰
+
+<br>
+<p><code>
+bash$ gpg --gen-key
+</code>
+
+<p>5a) 選擇妳想要使用的金鑰類別 ─ 用預設值就好了。
+
+<br>
+<p><code>
+Please select what kind of key you want:
+<br>   (1) DSA and ElGamal (default)
+<br>   (2) DSA (sign only)
+<br>   (4) ElGamal (sign and encrypt)
+<br>Your selection? &#60;return&#62;
+</code>
+
+<p>5b) 選擇妳的金鑰尺寸： 2048
+<br>
+<p><code>
+DSA keypair will have 1024 bits.
+<br>About to generate a new ELG-E keypair.
+<br>             minimum keysize is  768 bits
+<br>              default keysize is 1024 bits
+<br>    highest suggested keysize is 2048 bits
+<br>What keysize do you want? (1024) 2048&#60;return&#62;
+<br>Do you really need such a large keysize? yes&#60;return&#62;
+</code>
+
+<p>5c) 選擇這把金鑰的壽命： 5 年會是個好選擇
+
+<br>
+<p><code>Requested keysize is 2048 bits
+<br>Please specify how long the key should be valid.
+<br>         0 = key does not expire
+<br>      &#60;n&#62;  = key expires in n days
+<br>      &#60;n&#62;w = key expires in n weeks
+<br>      &#60;n&#62;m = key expires in n months
+<br>      &#60;n&#62;y = key expires in n years
+<br>Key is valid for? (0) 5y&#60;return&#62;
+<br>Key expires at Sun Sep 21 16:17:15 2005 EDT
+<br>Is this correct (y/n)? y&#60;return&#62;
+</code>
+
+<p>5d) 輸入妳的姓名跟電子郵件地址…
+
+<br>
+<p><code>
+Real name: Demo User&#60;return&#62;
+<br>Email address: demo@nonexistent.nowhere&#60;return&#62;
+<br>Comment:
+<br>You selected this USER-ID:
+<br>    "Demo User &#60;demo@nonexistent.nowhere&#62;"
+<br>
+<br>Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit?  O&#60;return&#62;
+</code>
+
+<p>5e) 選擇一個密碼串。妳得仔細挑一個纔行。這個密碼串應該要夠長而且要難以被猜到纔行。同時這還應該是妳將不會忘記的東西。如果妳忘記了妳的密碼串的話，將會無法回復妳的金鑰。
+
+<p>5f) 移動滑鼠並敲擊按鍵，也可以在背景更新位置或執行大規模的搜尋動作。 GPG 會讀取 /dev/random 來取得打造妳的金鑰所需的亂數。 /dev/random 則是由各種中斷所移植來的。
+
+<p>6) 任意修改你的金鑰。舉例來說，如果妳有很多個電子郵件地址的話，妳可能就會想要把她們都列進金鑰裡的有效電子郵件地址：
+
+<br>
+<p><code>
+bash$ gpg --list-secret-keys
+<br>
+<br>/home/demo/.gnupg/secring.gpg
+<br>----------------------------
+<br>sec  1024D/C01BAFC3 2000-09-21 Demo User &#60;demo@nonexistent.nowhere&#62;
+<br>ssb  2048g/7A4087F3 2000-09-21
+<br>bash$ gpg --edit-key C01BAFC3
+<br>Command&gt; help
+<br>Command&gt; adduid
+<br>[...]
+<br>Command&gt; save
+</code>
+
+<p>7) 把妳的金鑰送到金鑰伺服器上：
+<br>
+<p><code>
+[vab@firster vab]$ gpg --keyserver &#60;keyserver&#62; --send-key &#60;Your_Key_ID&#62;
+</code>
+
+<p>妳應該可以看到一個像這樣的成功訊息：
+<br>
+<p><code>
+gpg: success sending to `&#60;keyserver&#62;' (status=200)
+</code>
+
+<p><b><a name="ss3.6">3.6 把妳的金鑰送到金鑰伺服器</a></b>
+
+<p>值得注意的事有些人相信保持公開金鑰的隱密性對於加密通訊有額外的安全性。這是真的，因為金鑰伺服器可能會被破壞或入侵，而在使用者查詢時傳回不正確的公開金鑰。甚至在特定某台公開金鑰伺服器上的金鑰，可能並不是該金鑰最新的版本。舉例來說，有些加到金鑰上的簽章就沒有被傳播或上傳到金鑰伺服器上。另外金鑰對裡的公開金鑰也確實需要去抵抗各式各樣針對 pgp 所使用編碼系統的攻擊。雖然有許多人認為，祇要金鑰尺寸夠大，那麼無論公開金鑰被傳播的多廣，都將難以被擊破，但是保持公開金鑰的隱密性確實能夠使金鑰對更加堅固。
+
+<p>我並不建議妳把公開金鑰保持隱密，因為這將會打消妳使用 PGP 跟其他人通訊的意圖。注意到金鑰伺服器被入侵或破解時，可能會傳回無效的金鑰這個議題，能讓妳採取必要的防護措施，像是把妳的金鑰指紋放在 .signature 檔案或網頁上，以免收到用無效金鑰加密給妳的信件。至於要強調擔心有人用妳廣為人知的公開金鑰攻擊妳的金鑰對的話，我會說如果妳真的非常在意金鑰對的強度，或者是真的對於通訊隱密性極度偏執的話，那麼妳可以為每一次的通訊都打造一份額外的金鑰對（而且會在幾個小時或幾天內就過期），並且透過加密的通訊管道來跟妳的溝通對象傳遞這些金鑰對。
+
+<p>如果妳不希望把妳的金鑰放上公開金鑰伺服器，那麼妳就應該跳過這些步驟，同時在把公開金鑰寄給金鑰簽署大會主持人時，註明說妳不想讓妳的金鑰被放上公開金鑰伺服器。於是主持人就能夠擷取妳的公開金鑰資訊，並且把妳的金鑰用加密過的電子郵件或其他方法，轉寄給其他參與者，同時也一併註明這把金鑰在簽署後祇應該寄回給持有人，而不該上傳到金鑰伺服器。
+
+<p><b><a name="ss3.7">3.7 製作一份撤銷憑證</a></b>
+
+<p>這不是個必要的步驟。
+
+<p>製作及存放撤銷憑證能讓妳撤銷妳的金鑰，即便是妳的私有金鑰已經因為被洩漏、被奪取、忘記密碼串或儲存媒體損毀而不再能存取也一樣。如果妳希望在無法存取私有金鑰時，有能力撤銷妳的公開金鑰，那麼妳就應該要製作一份撤銷憑證，並且把它存放在安全且可靠的地方。妳也應該列印一份撤銷憑證的副本，因此當存放撤銷憑證的媒體也損毀的時候，妳還能以手鍵入這個撤銷憑證。
+
+<p>如果妳的撤銷憑證遭到洩漏，那麼洩漏妳的撤銷憑證的人也將能散播這份憑證，而使妳的金鑰失效。然而就算她能夠存取妳的撤銷憑證，也無法洩漏妳的秘密金鑰。也就是說她們將無法製作出偽造的簽署、把用妳的金鑰對加密過的訊息解密、或喬裝成是妳金鑰對的持有人。因為洩漏撤銷憑證的唯一風險就祇是金鑰對失效而已，所以這麼做通常是相當安全而值得的。
+
+<p> <a href="#ss3.9">3.9</a> 節裡面有更多關於金鑰撤銷的資訊。
+
+<p>製作撤銷憑證的 GnuPG 命令是：
+
+<br>
+<p><code>
+bash$ gpg --output revcert.asc --gen-revoke &#60;key_id&#62;
+</code>
+
+<p>9)  把妳的資訊寄給主持人，並且告訴她妳將會出席這場金鑰簽署大會。如果妳正在使用金鑰伺服器的話，下列的命令會把妳所需要寄給主持人的資訊印出來。妳可以用一封加密過的電子郵件把這個資訊寄給主持人。
+
+<br>
+<p><code>
+bash$ gpg --fingerprint  &#60;Your_Key_ID&#62;
+</code>
+
+<p>10)  解除軟碟掛載並取出：
+
+<br>
+<p><code>
+bash$ umount /mnt/floppy
+</code>
+
+<p>注意：為了安全起見妳還可以把軟碟帶在身邊，或把它放在可靠、上鎖了的書桌抽屜等。妳*最好別*讓妳可被網際網路存取的 .gnupg 目錄裡含有妳的金鑰。
+
+<p>11) 出現在大會上。
+<br>
+
+<p><b><a name="ss3.8">3.8 簽署其他的金鑰</a></b>
+
+<p>第一步：取得金鑰副本
+
+<p>通常妳得從金鑰伺服器取得。不過如果妳正要簽署某把不在金鑰伺服器上的金鑰時，妳可以用 <code>gpg --import</code> 來把這把金鑰匯入到妳的鑰匙圈。如果妳可以接通金鑰伺服器的話，下列的命令將會把金鑰從金鑰伺服器上下載到妳的公鑰鑰匙圈裡。
+<br>
+<p><code>
+bash$ gpg --keyserver &#60;keyserver&#62; --recv-keys  &#60;Key_ID&#62;
+</code>
+
+<p>如果妳得到讀取錯誤的訊息，這就表示金鑰伺服器負荷過重了。請在幾秒鐘後再試一遍。
+
+<p>第二步：指紋和驗證金鑰
+
+<br>
+<p><code>
+bash$ gpg --fingerprint &#60;Key_ID&#62;
+</code>
+
+<p>GPG 會印出 &#60;Key_ID &#62; 這把金鑰（就是妳剛剛下載金鑰）的指紋。請用妳在大會所取得的檢核表來檢查這裡出現的指紋。注意： 不要用網頁上的指紋來檢查檢核表上的指紋，因為伺服器傳給妳的金鑰有可能跟在網頁上顯示的並非同一把。
+
+<p>第三步：簽署金鑰
+
+<br>
+<p><code>
+bash$ gpg --sign-key &#60;Key_ID&#62;
+</code>
+
+<p>如果妳有多把私秘金鑰的話，妳可以像這樣祇訂要用哪一把私秘金鑰來簽署其他人的公開金鑰：
+
+<br>
+<p><code>
+bash$ gpg --default-key &#60;Key_to_use&#62; --sign-key &#60;Key_ID&#62;
+</code>
+
+<p>如果妳沒辦法處理 RSA 金鑰的話，可能是妳的 gnupg 版本太舊了。 1.0.3 版以前的 GnuPG 並不包含 RSA 支援。注意：如果妳的發行商用套件管理軟體裝了舊版的話，妳得先把它反安裝再安裝新版。妳可以執行這樣的指令來檢查版本：
+
+<br>
+<p><code>
+bash$ gpg --version
+</code>
+
+<p>第四步：傳回或上傳已簽署的金鑰
+
+<p>如果妳正在處理的對象並不希望她們的金鑰被送上金鑰伺服器的話，那麼這個節骨眼上妳就該選擇一個方法把她們已被簽署的金鑰送回去 ─ 通常是用加密過的郵件來傳送。妳不應該未經金鑰持有人允許就把金鑰送上金鑰伺服器。發佈某一把公開金鑰將會略微削弱金鑰對的安全性，因此讓金鑰比其持有人所希望的更為公開，將會是非常粗魯的行為。
+
+<p>通常妳可以連上金鑰伺服器。如果妳正是在這種狀況中的話，就可以像這樣把已簽署的金鑰送回金鑰伺服器：
+
+<br>
+<p><code>
+bash$ gpg --keyserver &#60;keyserver&#62; --send-key &#60;Key_ID&#62;
+</code>
+
+<p>妳應該會看到一個像這樣的成功訊息：
+<br>
+<p><code>
+gpg: success sending to `&#60;keyserver&#62;' (status=200)
+</code>
+
+<p>恭喜！現在對別人金鑰的簽署已經完成了，而妳的簽署也已經合併到她們的公開金鑰裡了。一個信任路徑於是被建立起來。
+
+<p><b><a name="ss3.9">3.9 撤銷妳的金鑰對</a></b>
+
+當妳懷疑妳的秘密金鑰已經被洩漏的時候，妳就應該要馬上撤銷妳的公開金鑰。金鑰撤銷需要用到公開金鑰的撤銷憑證。金鑰的撤銷代表著這把金鑰不再有效（安全）而且不應該被繼續使用。一旦撤銷憑證被提出了，就不能反悔。
+<p>
+
+<p>因為每次妳的 PGP 金鑰被存取時都是散佈（傳閱）在人群之間，而非從某個中央點散佈出來，所以妳也得用跟散佈公開金鑰相同的方法來或散佈妳的撤銷憑證。撤銷憑證的流通就跟妳散佈公開金鑰的方法一樣；通常也就是把撤銷憑證上傳到金鑰伺服器網路上。如果妳因為安全性的顧慮而還沒有把公開金鑰上傳到伺服器的話，妳還是可以把撤銷憑證上傳到金鑰伺服器。在這個情況下，妳是拿把公開金鑰給公開所導致安全性輕微下降，來交換某些人可能還不知道妳的金鑰已經被撤銷的安全性風險。
+
+<p>讓我們複習一下，製作撤銷憑證的 gpg 命令是：
+
+<br>
+<p><code>
+bash$ gpg --output revcert.asc --gen-revoke &#60;key_id&#62;
+</code>
+
+<p>如果妳知道妳的金鑰甚麼時候或者是怎麼被洩漏的話，那麼就算妳在打造金鑰時就製作過撤銷憑證，妳還是會想要再重新製作新的撤銷憑證，來撤銷妳的金鑰對。因為在這個情況下， OpenPGP 標準會讓妳指定為什麼要撤銷金鑰對的原因，甚至讓妳自由輸入一些註解來說明這個撤銷原因。當撤銷憑證跟這些資訊一起流傳的時候，顯然會對金鑰打造期間的一般性憑證更為有益且合宜。
+
+<hr>
+<h2><a name="toc4">4. Glossary of Terms</a></h2>
+
+
+<p><b><a name="key">Key</a></b> - One or more bits of data used in the encryption or decription process.
+
+<p><b><a name="keyfingerprint">Key Fingerprint</a></b> - If PGP, a value used to identify a key which is generated
+by performing a hash of key material.
+
+<p><b><a name="keypair">Key Pair</a></b> - In public key cryptography, a pair of keys consisting of a public
+and private, or secret, key which interrelate.
+
+<p><b><a name="keyring">Keyring</a></b> - A collection of keys.  Most often this term is used in relation to PGP,
+where a keyring consits of a collection of one or more key packets.
+
+<p><b><a name="keyserver">Key Server</a></b> - A system which stores key material in a database.  These servers may
+be queried by users who wish to acquire the public key of a recipient they have not had
+prior contact with.
+
+<p><b><a name="keysigningparty">Keysigning Party</a></b> - A get-together of people who use the PGP
+encryption system with the purpose of allowing those people to sign each others public keys.  Keysigning parties serve
+to extend the <a href="#weboftrust">web of trust</a>.
+
+<p><b><a name="openpgp">openPGP</a></b> - An open standard which defines a version of
+the PGP security system.
+
+<p><b><a name="prettygoodprivacy">Pretty Good Privacy [PGP]</a></b> -  Privacy software developed by Phil Zimmermann,
+which includes public key cryptography, a standard packet and key format, and symmetric encryption
+as well.
+
+<p><b><a name="publickey">Public Key</a></b> - In public key cryptography, the key of a key pair which is
+shared.
+
+<p><b><a name="publickeyring">Public Keyring</a></b> - A keyring consisting of Public Keys. This term is most often used in
+relation to <a href="#pgp">PGP</a>.
+
+<p><b><a name="radix">Radix</a></b> - A method of encoding data so that it may be transmitted
+over a channel which only support 8 bit characters.  For example, such a channel could be
+email or the Usenet.
+
+<p><b><a name="secretkey">Secret Key</a></b> - In public key cryptography, the key of a key pair which
+is kept secure.
+
+<p><b><a name="secretkeyring">Secret Keyring</a></b> - A collection of secret keys.  Most often this term is used in relation
+to PGP where it defines a collection of secret key packets.
+
+<p><b><a name="trustpath">Trust Path</a></b> - A route by which trust is extended from one entity to
+another.  In PGP, this is a link of trust between two public keys.
+
+<p><b><a name="weboftrust">Web of Trust</a></b> - The collection of signatures upon keys and resultant
+<a href="#trustpath">trust paths</a> in a user centric trust model which provide for authentication.
+Collectively, the trust relationships between a group of keys.
+
+<hr>
+<h2><a name="toc5">5. Relevant Information and Sources for More Information</a></h2>
+
+<p><b><a name="ss5.1">5.1 List of public key servers</a></b>
+<ol>
+<li><a href="http://keyserver.cryptnet.net/">CryptNET Keyserver Network</a>
+<ol>
+<li><a href="http://gnv.us.ks.cryptnet.net/">gnv.keyserver.cryptnet.net</a>
+</ol>
+<li><a href="http://wwwkeys.pgp.net/">pgp.net</a>
+<ol>
+<li><a href="http://wwwkeys.us.pgp.net/">wwwkeys.us.pgp.net</a>
+<li><a href="http://wwwkeys.nl.pgp.net/">wwwkeys.nl.pgp.net</a>
+<li><a href="http://wwwkeys.ch.pgp.net/">wwwkeys.ch.pgp.net</a>
+<li><a href="http://wwwkeys.uk.pgp.net/">wwwkeys.uk.pgp.net</a>
+<li><a href="http://wwwkeys.cz.pgp.net/">wwwkeys.cz.pgp.net</a>
+<li><a href="http://wwwkeys.de.pgp.net/">wwwkeys.de.pgp.net</a>
+<li><a href="http://wwwkeys.dk.pgp.net/">wwwkeys.dk.pgp.net</a>
+<li><a href="http://wwwkeys.es.pgp.net/">wwwkeys.es.pgp.net</a>
+</ol>
+<li><a href="http://www.keyserver.net/">www.keyserver.net Network</a>
+<ol>
+<li><a href="http://search.keyserver.net/">search.keyserver.net</a>
+<li><a href="http://seattle.keyserver.net/">seattle.keyserver.net</a>
+<li><a href="http://germany.keyserver.net/">germany.keyserver.net</a>
+<li><a href="http://belgium.keyserver.net/">belgium.keyserver.net</a>
+<li><a href="http://finland.keyserver.net/">finland.keyserver.net</a>
+<li><a href="http://thailand.keyserver.net/">thailand.keyserver.net</a>
+</ol>
+<li><a href="http://pgp.ai.mit.edu/">pgp.ai.mit.edu</a>
+<li><a href="http://pgp.cc.gatech.edu/">pgp.cc.gatech.edu</a>
+<li><a href="http://pgp.es.net/">pgp.es.net</a>
+<li><a href="http://pgp.rediris.es/">pgp.rediris.es</a>
+<li><a href="http://pgp.uk.demon.net/">pgp.uk.demon.net</a>
+<li><a href="http://pgp.uni-mainz.de/">pgp.uni-mainz.de</a>
+<li><a href="http://pgp.nic.ad.jp/">pgp.nic.ad.jp</a>
+<li><a href="http://ds.carnet.hr/">ds.carnet.hr</a>
+</ol>
+
+<p><b><a name="ss5.2">5.2 Links to related documents</a></b>
+<ul>
+<li><a href="http://www.cryptnet.net/mirrors/docs/zimmermann-sassaman.txt">The Zimmermann-Sassaman Keysigning Party Protocol Definition</a>
+<li><a href="http://www.gnupg.org/faq.html">GnuPG FAQ</a>
+<li><a href="http://www.gnupg.org/gph/en/manual.html">GnuPG Handbook</a>
+<li><a href="http://www.dewinter.com/gnupg_howto/english/GPGMiniHowto.html">GnuPG Mini Howto (English)</a>
+<li><a href="http://www.uk.pgp.net/pgpnet/pgp-faq/">comp.security.pgp FAQ</a>
+<li><a href="http://www.cryptnet.net/fdp/crypto/strong_distro.html">Strong Distribution HOWTO</a>
+<li><a href="http://www.cryptnet.net/fdp/crypto/guerrilla-devl.html">Guerrilla Software Development HOWTO</a>
+<li><a href="http://www.cryptnet.net/fdp/crypto/pgp-compromise.html">PGP Compromise HOWTO</a>
+<li><a href="http://www.cryptnet.net/fdp/crypto/crypto-dict.html">Cryptography Dictionary</a>
+</ul>
+
+<p><b><a name="ss5.3">5.3 Related Programs</a></b>
+<ul>
+<li><a href="http://www.gnupg.org/">Gnu Privacy Guard (GnuPG)</a> (<a href="http://freshmeat.net/projects/gnupg/">FreshMeat</a>)
+<li><a href="http://www.cryptnet.net/fsp/cks/">CryptNET Keyserver</a> (<a href="http://freshmeat.net/projects/cks/">FreshMeat</a>)
+<li><a href="http://www.lysator.liu.se/~jc/wotsap/">Wotsap</a> Web of trust statistics and pathfinder (<a href="http://freshmeat.net/projects/wotsap/">FreshMeat</a>)
+<li><a href="http://www.research.att.com/sw/tools/graphviz/">The AT&T; Labs-Research Graphviz package</a>
+</ul>
+
+<p><b><a name="ss5.4">5.4 Related web sites</a></b>
+<ul>
+<li><a href="http://www.biglumber.com/">Biglumber - Key Signing Coordination</a>
+<li><a href="http://lists.alt.org/mailman/listinfo/keysignings">Keysigning Party Mailing List</a>
+<li><a href="http://lists.alt.org/pipermail/keysignings/">Keysigning Party Mailing List Archive</a>
+<li><a href="http://www.openpgp.org/">OpenPGP Alliance Home Page</a>
+<li><a href="http://keyserver.kjsl.com/~jharris/keysigning.html">Jason Harris' PGP Keysigning Page</a>
+<li><a href="http://keyserver.kjsl.com/~jharris/ka">KeyAnalyze Page</a>
+<li><a href="http://www.pgpi.org/">International PGP Home Page</a>
+<li><a href="http://www.chaosreigns.com/code/sig2dot/">The Debian keyring graphing page</a>
+<li><a href="http://www.chaosreigns.com/code/sigtrace/">Signature Path Tracing page</a>
+<li><a href="http://www.cryptnet.net/">CryptNET</a>
+</ul>
+
+<p><b><a name="ss5.5">5.5 Related RFCs</a></b>
+<ul>
+<li><a href="http://www.cryptnet.net/mirrors/rfcs/rfc2440.txt">RFC2440: OpenPGP Message Format</a>
+<li><a href="http://www.cryptnet.net/mirrors/rfcs/rfc2015.txt">RFC2015: MIME Security With Pretty Good Privacy</a>
+</ul>
+
+<p><b><a name="ss5.6">5.6 Pictures from keysinging parties</a></b>
+<ul>
+<li>Gainesville, Florida, USA
+<li>Isreal [<a href="http://www.cryptnet.net/fdp/crypto/pgp_party/pgp_signing_party_1.jpg">1</a>][<a href="http://www.cryptnet.net/fdp/crypto/pgp_party/pgp_signing_party_2.jpg">2</a>]
+</ul>
+<hr>
+
+<h2><a name="toc6">6. About This Document</a></h2>
+
+<p>Copyright (c) 2000 - 2003  V. Alex Brennen.
+<p>Permission is granted to copy, distribute and/or modify this document
+under the terms of the <a href="http://www.fsf.org/copyleft/fdl.html">GNU Free Documentation License, Version 1.1</a>
+or any later version published by the Free Software Foundation.
+
+<p>This document lives at <a href="http://www.cryptnet.net/fdp/crypto/gpg-party.html">http://www.cryptnet.net/fdp/crypto/gpg-party.html</a>
+
+<p><b><a name="ss6.1">6.1 Versions</a></b>
+<p>Version 1.0.0, 2000.10.01 Initial Release.
+<p>Version 1.0.1, 2000.10.03 Format/Writing changes, private public keys info.
+<p>Version 1.0.2, 2000.12.07 HTML (Bad Link) Fix.
+<p>Version 1.0.3, 2001.01.14 Simplification revisions, graphing, keyserver security/etiquette information, perl code, announcement examples, additional material, and general fixes.
+<p>Version 1.0.4, 2001.06.21 Revocation information added: 3.5, 3.7. RFC info added: 4.4.  Keyserver list and web site links updated.
+<p>Version 1.0.5, 2003.03.24 Glossary Added: 4. Pictures Added: 5.5. Minor corrections, additional material, and formatting changes.
+<p>Version 1.0.6, 2003.03.24 New Content: Zimmermann-Sassaman Method, Brennen Method.  General document clean-up.
+<p>Version 1.0.7, 2003.05.07 Added German Translation
+<p>Version 1.0.8, 2003.05.09 Added Section 5.3 Related Programs
+
+<p><b><a name="ss6.2">6.2 Translations</a></b>
+<p>This document is currently only available in the following languages:
+
+<p>[<a href="http://www.cryptnet.net/fdp/crypto/gpg-party.html">en</a>] English
+<p>[<a href="http://alfie.ist.org/projects/gpg-party/gpg-party.de.html">de</a>] German (<a href="gpg-party/de/">Local Mirror</a>)
+<p>[<a href="http://neonatus.net/~neonatus/GPG/index.html">si</a>] Slovenian (<a href="gpg-party/si/">Local Mirror</a>)
+<p>[<a href="http://www.zope.org.tw/Members/pwchi/Tech_Docs/pgp-party">zh-TW</a>] Traditional Chinese (<a href="gpg-party/zh-TW/">Local Mirror</a>)
+
+<p>If you know of a translation or would like to translate it to another language please let me know so
+that I can distribute or link to the translated versions.
+
+<p><b><a name="ss6.3">6.3 Contributors</a></b>
+<p><a href="http://www.cryptnet.net/people/vab/">V. Alex Brennen</a> (Principal Author)
+<p><a href="http://www.chaosreigns.com/">Darxus</a> (Graphing Code (sig2dot.pl &amp; sigtrace.pl))
+<p><a href="http://neonatus.net/~neonatus/">Bostjan Muller</a> (Slovenian Translation)
+<p><a href="http://alfie.ist.org/">Gerfried Fuchs</a> (German Translation)
+<p><a href="http://kalug.linux.org.tw/~chihchun/">chihchun</a> <a href="http://formosa.muds.net:7777/mt/">clotho</a> <a>fetag</a> <a href="http://blog.elixus.org/jedi/">Jedi</a> <a href="mailto:kcwu%5Bat%5Dcsie.org">kcwu</a> <a href="http://pwchi.info/">pwchi</a> <a href="http://mafia.ee.ccu.edu.tw/~winfred/">winfred</a> (Traditional Chinese Translation)
+<p>
+<hr>
+<h6><center><a href="http://www.cryptnet.net/">CryptNET</a></center></h6>
+</body></html>

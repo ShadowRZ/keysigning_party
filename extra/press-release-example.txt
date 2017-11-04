@@ -1,0 +1,41 @@
+For Immediate Release
+
+For more information contact:  V. Alex Brennen (XXX) XXX-XXXX
+                               vab@cryptnet.net
+
+
+Local Computer Enthusiasts Group to Hold Public Keysigning Party
+
+    Wednesday, January 15, 2001, 8:30 p.m, the Florida Linux Users
+group will hold a PGP Keysigning party at the Market Street Pub
+in Gainesville Florida from 8:30 p.m. until 9:00 p.m.  The party
+is open to the public, all are welcome to attend.  More information,
+including directions, is available at:
+
+http://www.cryptnet.net/events/pgp-party-1.html
+
+    PGP Keysigning parties are a get-together of PGP users for the
+purpose of meeting other PGP users and signing each other's keys.
+PGP is a form of encryption technology, similar to technologies used
+in electronic commerce.  PGP Keysigning parties extend the "web of
+trust", which is a form of infrastructure that PGP depends on to work
+properly. PGP Keysigning parties are events which build infrastructure
+for PGP communications and encourage the use of PGP. PGP technology
+can produce digital signatures, preserve individual privacy, and help
+to protect individuals on the internet from hackers.
+
+    The Florida Linux Users (FLU) are a group of computer enthusiasts
+who meet to promote and support people in the use and development of
+the Linux OS.  FLU members include system administrators, publishers,
+students, scientists, business people, and others. All share an
+interest in varied aspects of the Linux OS.  FLU serves as a social
+group discussing technology and as a support group for the discussion
+and trouble-shooting of Linux and Linux related issues.  FLU currently
+holds quarterly installation workshops to get new people up and running
+Linux as quickly and as easily as possible. The group also has guest
+speakers on a regular basis.
+
+*Linux is a registered Trade Mark of Linus Torvalds.
+
+
+                                                       ##VAB~CryptNET##

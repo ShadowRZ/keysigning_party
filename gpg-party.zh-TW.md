@@ -128,153 +128,131 @@ This document describes the protocol and methods for holding and participating i
 打造金鑰對的程序相當簡單。基本上來說妳就祇需要執行 `gpg --gen-key` 就行了。然而我建議妳最好同時也產生一份撤銷憑證，免得日後妳不幸無法存取秘密金鑰（像是弄丟了密碼串或遺失了秘密金鑰）時還有最後一條路可走。 產生撤銷憑證的指引可以在本文件的 3.7 節找到。
 
 以下這份逐步指引是按照我所知道的實際使用情況原則而撰寫而成的，理論上也夠安全。舉例來說：
-    * 金鑰會以可能的最大尺寸打造，讓它們更能抵抗暴力攻擊
-    * 產生了一份撤銷憑證，讓金鑰遺失的時候得以撤銷公開金鑰 
+
+ * 金鑰會以可能的最大尺寸打造，讓它們更能抵抗暴力攻擊
+ * 產生了一份撤銷憑證，讓金鑰遺失的時候得以撤銷公開金鑰 
+
 有些人也許就算不談論這些安全預警也能感到自在。舉例來說，如果妳有一台攜帶式電腦或家用電腦，而且妳用這台電腦來讀取所有的電子郵件的話，那麼也許妳會很愉快地把金鑰儲存在這台電腦的硬碟裡。同時妳也能放心地打造一副永遠不會過期的金鑰對，用來鑑別妳自己的身份並用於大量的通訊中 ─ 然後再打造另一副額外的金鑰對來處理極端敏感的通訊（妳真的該這麼做）。再次聲明，以下這份逐步指引是按照我所知最佳的實務安全性原則所撰寫而成的。妳並不需要完全按照這些步驟，祇需要打造一副金鑰對就行了。另一方面來說，如果妳跟我一樣也是對安全性極度偏執的怪胎的話，那麼按照這些指引至少能在短時間內，暫時快速地提供妳所需要的冷靜感。
 
 以下這份逐步指引是按照我所知道最佳的實務安全性（極度偏執）原則所撰寫而成的。舉例來說：
-    * 金鑰會以可能的最大尺寸打造，讓它們更能抵抗暴力攻擊
-    * 金鑰打造的時候被賦予有限的壽命，以免它們最終被日益卓越的電腦科技所洩漏
-    * 金鑰被儲存在軟碟片上，以免它們被某個能存取妳電腦（無論是從遠端或實際上）的人所竊取
-    * 產生了一份撤銷憑證，讓金鑰遺失或被洩漏的時候得以撤銷公開金鑰 
-1) 到 www.gnupg.org 並下載最新版的 gnupg: `gnupg-x.x.x.tar.gz`
+
+ * 金鑰會以可能的最大尺寸打造，讓它們更能抵抗暴力攻擊
+ * 金鑰打造的時候被賦予有限的壽命，以免它們最終被日益卓越的電腦科技所洩漏
+ * 金鑰被儲存在軟碟片上，以免它們被某個能存取妳電腦（無論是從遠端或實際上）的人所竊取
+ * 產生了一份撤銷憑證，讓金鑰遺失或被洩漏的時候得以撤銷公開金鑰 
+
+1. 到 www.gnupg.org 並下載最新版的 gnupg: `gnupg-x.x.x.tar.gz`
 
 警告：請確定妳至少正在執行 1.0.6 版以後的 GnuPG 。 1.0.6 版以前的版本至少有一個顯著的安全性弱點。
 
-2) 檢查 GnuPG 壓縮檔的 PGP 簽章和 MD5 加總檢查：
-    
-    ```
-    gpg --verify gnupg-x.x.x.tar.gz.sig gnupg-x.x.x.tar.gz
-    md5sum gnupg-x.x.x.tar.gz
-    ```
-    
-3) 解開壓縮檔、進行組態、編譯然後加以安裝：
-    
-    ```
-    tar xvzf gnupg-x.x.x.tar.gz
-    cd gnupg-x.x.x
-    ./configure
-    make
-    su
-    make install
-    exit
-    cd
-    ```
-    
-如果妳安裝 GnuPG 的系統會跟其他人共用的話，妳也許也會想要對 `gpg` 執行 `setuid root` 來讓它使用安全的記憶體。如果妳選擇要這麼做，那麼妳就應該預先警惕到可能的危險，並且用 md5 簽章跟 pgp 簽章來檢查妳手上的壓縮檔，以確保妳沒有安裝到被裝殖了特洛伊木馬的程式。
+2. 檢查 GnuPG 壓縮檔的 PGP 簽章和 MD5 加總檢查：
+ ```sh
+ gpg --verify gnupg-x.x.x.tar.gz.sig gnupg-x.x.x.tar.gz
+ md5sum gnupg-x.x.x.tar.gz
+ ```
+3. 解開壓縮檔、進行組態、編譯然後加以安裝：
+ ```sh
+ tar xvzf gnupg-x.x.x.tar.gz
+ cd gnupg-x.x.x
+ ./configure
+ make
+ su
+ make install
+ exit
+ cd
+ ```
+ 如果妳安裝 GnuPG 的系統會跟其他人共用的話，妳也許也會想要對 `gpg` 執行 `setuid root` 來讓它使用安全的記憶體。如果妳選擇要這麼做，那麼妳就應該預先警惕到可能的危險，並且用 md5 簽章跟 pgp 簽章來檢查妳手上的壓縮檔，以確保妳沒有安裝到被裝殖了特洛伊木馬的程式。
 
-4) 拿一片準備用來存放妳的金鑰的磁片，並且先加以格式化。
-    
-    ```
-    /sbin/mkfs.ext2 /dev/fd0
-    ```
-    
-4a) 把軟碟掛上並在上面建立一個屬於妳的目錄，用來存放妳的金鑰：
-    
-    ```
-    mount /mnt/floppy
-    mkdir /mnt/floppy/.gnupg
-    ```
-    
-有需要的話（依照妳系統上的 fd0 存取而異）：
-    
-    ```
-    chown <your_uid>:<your_gid> /mnt/floppy/.gnupg
-    ```
-    
-4b) 從妳的家目錄建立一個指向軟碟的符號鏈結
-    
-    ```
-    ln -s /mnt/floppy/.gnupg .gnupg
-    ```
-    
-5) 打造妳的 gnupg 金鑰
-    
-    ```
-    gpg --gen-key
-    ```
-    
-5a) 選擇妳想要使用的金鑰類別 ─ 用預設值就好了。
-    
-    ```
-    Please select what kind of key you want:
-    (1) DSA and ElGamal (default)
-    (2) DSA (sign only)
-    (4) ElGamal (sign and encrypt)
-    Your selection? <return>
-    ```
-    
+4. 拿一片準備用來存放妳的金鑰的磁片，並且先加以格式化。
+ ```sh
+ /sbin/mkfs.ext2 /dev/fd0
+ ```
+ 1. 把軟碟掛上並在上面建立一個屬於妳的目錄，用來存放妳的金鑰：
+  ```sh
+  mount /mnt/floppy
+  mkdir /mnt/floppy/.gnupg
+  ```
+ 有需要的話（依照妳系統上的 fd0 存取而異）：
+  ```sh
+  chown <your_uid>:<your_gid> /mnt/floppy/.gnupg
+  ```
+ 2. 從妳的家目錄建立一個指向軟碟的符號鏈結
+ ```sh
+ ln -s /mnt/floppy/.gnupg .gnupg
+ ```
+5. 打造妳的 gnupg 金鑰
+ ```sh
+ gpg --gen-key
+ ```
+ 1 .選擇妳想要使用的金鑰類別 ─ 用預設值就好了。
+ ```
+ Please select what kind of key you want:
+ (1) DSA and ElGamal (default)
+ (2) DSA (sign only)
+ (4) ElGamal (sign and encrypt)
+ Your selection? <return>
+ ```
 5b) 選擇妳的金鑰尺寸： 2048
-    
-    ```
-    DSA keypair will have 1024 bits.
-    About to generate a new ELG-E keypair.
-    minimum keysize is 768 bits
-    default keysize is 1024 bits
-    highest suggested keysize is 2048 bits
-    What keysize do you want? (1024) 2048<return>
-    Do you really need such a large keysize? yes<return>
-    ````
-    
+ ```
+ DSA keypair will have 1024 bits.
+ About to generate a new ELG-E keypair.
+ minimum keysize is 768 bits
+ default keysize is 1024 bits
+ highest suggested keysize is 2048 bits
+ What keysize do you want? (1024) 2048<return>
+ Do you really need such a large keysize? yes<return>
+ ```
 5c) 選擇這把金鑰的壽命： 5 年會是個好選擇
-    
-    ```
-    Requested keysize is 2048 bits
-    Please specify how long the key should be valid.
-    0 = key does not expire
-    <n> = key expires in n days
-    <n>w = key expires in n weeks
-    <n>m = key expires in n months
-    <n>y = key expires in n years
-    Key is valid for? (0) 5y<return>
-    Key expires at Sun Sep 21 16:17:15 2005 EDT
-    Is this correct (y/n)? y<return>
-    ```
-    
+ ```
+ Requested keysize is 2048 bits
+ Please specify how long the key should be valid.
+ 0 = key does not expire
+ <n> = key expires in n days
+ <n>w = key expires in n weeks
+ <n>m = key expires in n months
+ <n>y = key expires in n years
+ Key is valid for? (0) 5y<return>
+ Key expires at Sun Sep 21 16:17:15 2005 EDT
+ Is this correct (y/n)? y<return>
+ ```
 5d) 輸入妳的姓名跟電子郵件地址…
-    
-    ```
-    Real name: Demo User<return>
-    Email address: demo@nonexistent.nowhere<return>
-    Comment:
-    You selected this USER-ID:
-    "Demo User <demo@nonexistent.nowhere>"
-
-    Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O<return>
-    ```
-    
+ ```
+ Real name: Demo User<return>
+ Email address: demo@nonexistent.nowhere<return>
+ Comment:
+ You selected this USER-ID:
+ "Demo User <demo@nonexistent.nowhere>"
+ 
+ Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O<return>
+ ```
 5e) 選擇一個密碼串。妳得仔細挑一個纔行。這個密碼串應該要夠長而且要難以被猜到纔行。同時這還應該是妳將不會忘記的東西。如果妳忘記了妳的密碼串的話，將會無法回復妳的金鑰。
 
 5f) 移動滑鼠並敲擊按鍵，也可以在背景更新位置或執行大規模的搜尋動作。 GPG 會讀取 /dev/random 來取得打造妳的金鑰所需的亂數。 /dev/random 則是由各種中斷所移植來的。
 
 6) 任意修改你的金鑰。舉例來說，如果妳有很多個電子郵件地址的話，妳可能就會想要把她們都列進金鑰裡的有效電子郵件地址：
-    
-    ```
-    gpg --list-secret-keys
+ ```
+ gpg --list-secret-keys
 
-    /home/demo/.gnupg/secring.gpg
-    ----------------------------
-    sec 1024D/C01BAFC3 2000-09-21 Demo User <demo@nonexistent.nowhere>
-    ssb 2048g/7A4087F3 2000-09-21
-    
-    gpg --edit-key C01BAFC3
-    Command> help
-    Command> adduid
-    [...]
-    Command> save
-    ```
-    
+ /home/demo/.gnupg/secring.gpg
+ ----------------------------
+ sec 1024D/C01BAFC3 2000-09-21 Demo User <demo@nonexistent.nowhere>
+ ssb 2048g/7A4087F3 2000-09-21
+ 
+ gpg --edit-key C01BAFC3
+ Command> help
+ Command> adduid
+ [...]
+ Command> save
+ ```
 7) 把妳的金鑰送到金鑰伺服器上：
-    
-    ```
-    gpg --keyserver <keyserver> --send-key <Your_Key_ID>
-    ```
-    
-妳應該可以看到一個像這樣的成功訊息：
-    
-    ```
-    gpg: success sending to `<keyserver>' (status=200)
-    ```
+ ```
+ gpg --keyserver <keyserver> --send-key <Your_Key_ID>
+ ```
+    
+ 妳應該可以看到一個像這樣的成功訊息：
+ ```
+ gpg: success sending to `<keyserver>' (status=200)
+ ```
     
 ## 3.6 把妳的金鑰送到金鑰伺服器
 
@@ -295,81 +273,61 @@ This document describes the protocol and methods for holding and participating i
 3.9 節裡面有更多關於金鑰撤銷的資訊。
 
 製作撤銷憑證的 GnuPG 命令是：
-    
-    ```
-    gpg --output revcert.asc --gen-revoke <key_id>
-    ```
-    
+ ```
+ gpg --output revcert.asc --gen-revoke <key_id>
+ ```
 9) 把妳的資訊寄給主持人，並且告訴她妳將會出席這場金鑰簽署大會。如果妳正在使用金鑰伺服器的話，下列的命令會把妳所需要寄給主持人的資訊印出來。妳可以用一封加密過的電子郵件把這個資訊寄給主持人。
-    
-    ```
-    gpg --fingerprint <Your_Key_ID>
-    ```
-    
+ ```
+ gpg --fingerprint <Your_Key_ID>
+ ```
 10) 解除軟碟掛載並取出：
-    
-    ```
-    umount /mnt/floppy
-    ```
-    
+ ```
+ umount /mnt/floppy
+ ```
 注意：為了安全起見妳還可以把軟碟帶在身邊，或把它放在可靠、上鎖了的書桌抽屜等。妳**最好別**讓妳可被網際網路存取的 .gnupg 目錄裡含有妳的金鑰。
 
 11) 出現在大會上。
 
 ## 3.8 簽署其他的金鑰
 
-第一步：取得金鑰副本
+### 第一步：取得金鑰副本
 
 通常妳得從金鑰伺服器取得。不過如果妳正要簽署某把不在金鑰伺服器上的金鑰時，妳可以用 gpg --import 來把這把金鑰匯入到妳的鑰匙圈。如果妳可以接通金鑰伺服器的話，下列的命令將會把金鑰從金鑰伺服器上下載到妳的公鑰鑰匙圈裡。
-    
-    ```
-    gpg --keyserver <keyserver> --recv-keys <Key_ID>
-    ```
-    
+ ```
+ gpg --keyserver <keyserver> --recv-keys <Key_ID>
+ ```
 如果妳得到讀取錯誤的訊息，這就表示金鑰伺服器負荷過重了。請在幾秒鐘後再試一遍。
 
-第二步：指紋和驗證金鑰
-    
-    ```
-    gpg --fingerprint <Key_ID>
-    ```
-
+### 第二步：指紋和驗證金鑰
+ ```
+ gpg --fingerprint <Key_ID>
+ ```
 GPG 會印出 <Key_ID> 這把金鑰（就是妳剛剛下載金鑰）的指紋。請用妳在大會所取得的檢核表來檢查這裡出現的指紋。注意： 不要用網頁上的指紋來檢查檢核表上的指紋，因為伺服器傳給妳的金鑰有可能跟在網頁上顯示的並非同一把。
 
-第三步：簽署金鑰
-    
-    ```
-    gpg --sign-key <Key_ID>
-    ```
-    
+### 第三步：簽署金鑰
+ ```
+ gpg --sign-key <Key_ID>
+ ```
 如果妳有多把私秘金鑰的話，妳可以像這樣祇訂要用哪一把私秘金鑰來簽署其他人的公開金鑰：
-    
-    ```
-    gpg --default-key <Key_to_use> --sign-key <Key_ID>
-    ```
-    
+ ```
+ gpg --default-key <Key_to_use> --sign-key <Key_ID>
+ ```
 如果妳沒辦法處理 RSA 金鑰的話，可能是妳的 gnupg 版本太舊了。 1.0.3 版以前的 GnuPG 並不包含 RSA 支援。注意：如果妳的發行商用套件管理軟體裝了舊版的話，妳得先把它反安裝再安裝新版。妳可以執行這樣的指令來檢查版本：
-    
-    ```
-    gpg --version
-    ```
-    
-第四步：傳回或上傳已簽署的金鑰
+ ```
+ gpg --version
+ ```
+### 第四步：傳回或上傳已簽署的金鑰
 
 如果妳正在處理的對象並不希望她們的金鑰被送上金鑰伺服器的話，那麼這個節骨眼上妳就該選擇一個方法把她們已被簽署的金鑰送回去 ─ 通常是用加密過的郵件來傳送。妳不應該未經金鑰持有人允許就把金鑰送上金鑰伺服器。發佈某一把公開金鑰將會略微削弱金鑰對的安全性，因此讓金鑰比其持有人所希望的更為公開，將會是非常粗魯的行為。
 
 通常妳可以連上金鑰伺服器。如果妳正是在這種狀況中的話，就可以像這樣把已簽署的金鑰送回金鑰伺服器：
-    
-    ```
-    gpg --keyserver <keyserver> --send-key <Key_ID>
-    ```
-    
+ ```
+ gpg --keyserver <keyserver> --send-key <Key_ID>
+ ```
 妳應該會看到一個像這樣的成功訊息：
-    
-    ```
-    gpg: success sending to `<keyserver>' (status=200)
-    ```
-    
+ ```
+ gpg: success sending to <keyserver> (status=200)
+ ```
 恭喜！現在對別人金鑰的簽署已經完成了，而妳的簽署也已經合併到她們的公開金鑰裡了。一個信任路徑於是被建立起來。
 
 ## 3.9 撤銷妳的金鑰對
@@ -378,10 +336,7 @@ GPG 會印出 <Key_ID> 這把金鑰（就是妳剛剛下載金鑰）的指紋。
 因為每次妳的 PGP 金鑰被存取時都是散佈（傳閱）在人群之間，而非從某個中央點散佈出來，所以妳也得用跟散佈公開金鑰相同的方法來或散佈妳的撤銷憑證。撤銷憑證的流通就跟妳散佈公開金鑰的方法一樣；通常也就是把撤銷憑證上傳到金鑰伺服器網路上。如果妳因為安全性的顧慮而還沒有把公開金鑰上傳到伺服器的話，妳還是可以把撤銷憑證上傳到金鑰伺服器。在這個情況下，妳是拿把公開金鑰給公開所導致安全性輕微下降，來交換某些人可能還不知道妳的金鑰已經被撤銷的安全性風險。
 
 讓我們複習一下，製作撤銷憑證的 gpg 命令是：
-    
-    ```
-    gpg --output revcert.asc --gen-revoke <key_id>
-    ```
-    
+ ```sh
+ gpg --output revcert.asc --gen-revoke <key_id>
+ ```
 如果妳知道妳的金鑰甚麼時候或者是怎麼被洩漏的話，那麼就算妳在打造金鑰時就製作過撤銷憑證，妳還是會想要再重新製作新的撤銷憑證，來撤銷妳的金鑰對。因為在這個情況下， OpenPGP 標準會讓妳指定為什麼要撤銷金鑰對的原因，甚至讓妳自由輸入一些註解來說明這個撤銷原因。當撤銷憑證跟這些資訊一起流傳的時候，顯然會對金鑰打造期間的一般性憑證更為有益且合宜。 
-***

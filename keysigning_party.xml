@@ -105,9 +105,9 @@
 </para>
 <para>This document is hereby placed in the public domain.</para>
 <para>This document lives at 
-<ulink url="http://cryptnet.net/fdp/crypto/keysigning_party/en/keysigning_party.html">
-http://cryptnet.net/fdp/crypto/keysigning_party/en/keysigning_party.html
-</ulink> (<ulink url="http://cryptnet.net/fdp/crypto/keysigning_party/en/keysigning_party.xml">DocBook XML</ulink>)
+<ulink url="keysigning_party.html">
+keysigning_party.html
+</ulink> (<ulink url="keysigning_party.xml">DocBook XML</ulink>)
 </para>
 </section>
 
@@ -122,7 +122,7 @@ http://cryptnet.net/fdp/crypto/keysigning_party/en/keysigning_party.html
 	</listitem>
 	<listitem>
 		<para>
-		[<ulink url="http://cryptnet.net/fdp/crypto/keysigning_party/en/keysigning_party.html">en</ulink>] English (<ulink url="http://cryptnet.net/fdp/crypto/keysigning_party/en/keysigning_party.xml">DocBook XML</ulink>)
+		[<ulink url="keysigning_party.html">en</ulink>] English (<ulink url="keysigning_party.xml">DocBook XML</ulink>)
 		</para>
 	</listitem>
 	<listitem>
@@ -235,7 +235,7 @@ subkeys.  I will use the term "public key packet" when refering to the public en
    <title>An Example Web Of Trust Graph</title>
 	<mediaobject>
 		<imageobject>
-			<imagedata fileref="http://cryptnet.net/fdp/crypto/keysigning_party/en/extra/wot_example_small.jpg" format="JPG"></imagedata>
+			<imagedata fileref="extra/wot_example_small.jpg" format="JPG"></imagedata>
 		</imageobject>
 	</mediaobject>
 </figure>
@@ -307,7 +307,7 @@ subsections below, you'll be able to determine and select the right party method
 
 <section id="list_based_organizing">
 <title>Organizing</title>
-<para>I've written a public domain <ulink url="http://cryptnet.net/fdp/crypto/keysigning_party/en/extra/party-table.pl">perl script to generate the keysigning party list from an openPGP public keyring</ulink> for you to use.  You can post this list on the web so that recipients can print it out, or you can bring copies to the party for everyone.</para>
+<para>I've written a public domain <ulink url="extra/party-table.pl">perl script to generate the keysigning party list from an openPGP public keyring</ulink> for you to use.  You can post this list on the web so that recipients can print it out, or you can bring copies to the party for everyone.</para>
 </section>
 
 <section id="list_based_participation">
@@ -360,13 +360,13 @@ subsections below, you'll be able to determine and select the right party method
 
 <itemizedlist>
 	<listitem>
-		<para><ulink url="http://cryptnet.net/fdp/crypto/keysigning_party/en/extra/annc-example.html">PGP Keysigning Party Announcement Web Page</ulink></para>
+		<para><ulink url="extra/annc-example.html">PGP Keysigning Party Announcement Web Page</ulink></para>
 	</listitem>
 	<listitem>
-		<para><ulink url="http://cryptnet.net/fdp/crypto/keysigning_party/en/extra/email-example.txt">PGP Keysigning Party Announcement E-Mail</ulink></para>
+		<para><ulink url="extra/email-example.txt">PGP Keysigning Party Announcement E-Mail</ulink></para>
 	</listitem>
 	<listitem>
-		<para><ulink url="http://cryptnet.net/fdp/crypto/keysigning_party/en/extra/press-release-example.txt">PGP Keysigning Party Announcement Press Release</ulink></para>
+		<para><ulink url="extra/press-release-example.txt">PGP Keysigning Party Announcement Press Release</ulink></para>
 	</listitem>
 </itemizedlist>
 
@@ -556,7 +556,7 @@ You can then send that information in an encrypted email message to the coordina
 
 <para>The purpose of posting a signing policy is two fold.  First, a signing policy lets individuals who would like to have you sign their key gain an understanding of what they'll need to do in order to get that signature. the policy may detail what documents you require, what type of keys you'll sign, or even if you'll sign the PGP keys of people you do not have a long standing personal relationship with at all.  Second, a signing policy can help others evaluate the quality of the signatures you have made on other's PGP keys.</para>
 
-<para>Here is an <ulink url="http://cryptnet.net/fdp/crypto/keysigning_party/en/extra/signing_policy.html">example key signing policy</ulink> for your reference.</para>
+<para>Here is an <ulink url="extra/signing_policy.html">example key signing policy</ulink> for your reference.</para>
 </section>
 </chapter>
 
@@ -919,17 +919,17 @@ his key to be valid for a longer period of time than I did when I first generate
 <itemizedlist>
 <listitem>
 <para>
-Gainesville, Florida, USA [<ulink url="http://cryptnet.net/fdp/crypto/keysigning_party/en/extra/pgp_signing_party_3.jpg">1</ulink>]
+Gainesville, Florida, USA [<ulink url="extra/pgp_signing_party_3.jpg">1</ulink>]
 </para>
 </listitem>
 <listitem>
 <para>
-San Francisco, California, USA [<ulink url="http://cryptnet.net/fdp/crypto/keysigning_party/en/extra/pgp_signing_party_4.jpg">1</ulink>]
+San Francisco, California, USA [<ulink url="extra/pgp_signing_party_4.jpg">1</ulink>]
 </para>
 </listitem>
 <listitem>
 <para>
-Israel [<ulink url="http://cryptnet.net/fdp/crypto/keysigning_party/en/extra/pgp_signing_party_1.jpg">1</ulink> <ulink url="http://cryptnet.net/fdp/crypto/keysigning_party/en/extra/pgp_signing_party_2.jpg">2</ulink>]
+Israel [<ulink url="extra/pgp_signing_party_1.jpg">1</ulink> <ulink url="extra/pgp_signing_party_2.jpg">2</ulink>]
 </para>
 </listitem>
 </itemizedlist>

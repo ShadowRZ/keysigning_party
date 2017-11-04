@@ -1,0 +1,73 @@
+Date:         Sun, 7 Jan 2001 01:06:13 -0500
+Reply-To:     "V. Alex Brennen" <vab@CRYPTNET.NET>
+Sender:       Campus Computer Coordinators <CCC@LISTS.UFL.EDU>
+From:         "V. Alex Brennen" <vab@CRYPTNET.NET>
+Subject:      PGP Key Signing Party!
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+
+There will be a PGP key-signing party held during the
+Advanced Linux Users Meeting on Wednesday January 17,
+2001 from 8:30pm to 9:00pm at the Market Street Pub 
+in Gainesville, Florida.
+
+Full details at:
+
+        http://www.cryptnet.net/events/pgp-party-1.html
+
+What's a key-signing party?
+
+A key-signing party is a get-together with PGP users for the purpose
+of meeting other PGP users and signing each other's keys. This helps
+to extend the "web of trust" to a great degree. Also, it sometimes
+serves as a forum to discuss strong cryptography and related issues.
+
+Required Items?
+
+        1. Physical attendance
+        2. Positive picture ID
+        3. Your key ID, key type, HEX fingerprint, and key size
+        4. A pen/pencil or whatever you'd like to write with....
+        5. NO computer
+
+
+Why should I use PGP?
+
+You should use PGP, if you need (or want) to protect your personal
+emails from being read by individuals or entities other than your
+intended recipient(s). PGP, when used correctly, can provide message
+privacy, message integrity, message authentication, and to some
+degree non-repudibility.
+
+
+OK. What are some good applications of PGP?
+
+Protection of email traffic of a sensitive nature, such as the
+coordination of response to ongoing security incidents, requests
+for DNS modifications, requests for networking changes and exchange
+of sensitive personal information like SSNs. At the very least, it
+would be useful to have all such messages signed, so the recipients
+could be sure that the notes were not forged.
+
+
+Graphs of the Web of Trust formed at the last keysigning party
+in Gainesville are available from:
+
+        http://www.cryptnet.net/people/vab/dog/
+
+Please forward this note to anyone who may be interested in
+attending.
+
+
+        - VAB
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.0.4 (GNU/Linux)
+Comment: For info see http://www.gnupg.org
+
+iD8DBQE6WPJ++pIJc5kqSz8RAmu1AJ9ebWLXrWnP+Pr/vuUGzfYe+H0qjgCfeKHQ
+Ys6B8Isg5/+CpaPc+posd5w=
+=akYu
+-----END PGP SIGNATURE-----

@@ -4,6 +4,7 @@ V. Alex Brennen <vab@mit.edu>
 :toc: left
 :sectanchors:
 :sectnums:
+:lang: en
 
 [[about]]
 == About This Document
@@ -16,7 +17,7 @@ Copyright (c) 2000-2008 http://cryptnet.net/people/vab/[V. Alex Brennen]
 
 This document is hereby placed in the public domain.
 
-This document lives at keysigning_party.html
+This document lives at link:keysigning_party.html[keysigning_party.html]
 (link:keysigning_party.xml[DocBook XML])
 
 [[translations]]
@@ -34,7 +35,7 @@ Spanish
 * [http://www.gnupg.org/howtos/it/keysigning_party.html[it]] Italian
 (http://cryptnet.net/fdp/crypto/keysigning_party/it/keysigning_party.html[Mirror]
 [http://cryptnet.net/fdp/crypto/keysigning_party/it/keysigning_party.xml[DocBook
-XML])
+XML]])
 * [http://ivlad.unixgods.net/gpg-party/gpg-party-howto-ru.html[ru]]
 Russian
 (http://cryptnet.net/fdp/crypto/gpg-party/gpg-party.html.ru[Mirror])
@@ -53,7 +54,7 @@ translated versions.
 === Contributers
 
 * http://cryptnet.net/people/vab/[V. Alex Brennen] (Principal Author)
-* http://www.chaosreigns.com/[Darxus] (Graphing Code (sig2dot.pl &
+* http://www.chaosreigns.com/[Darxus] (Graphing Code (sig2dot.pl &amp;
 sigtrace.pl))
 * http://neonatus.net/~neonatus/[Bostjan Muller] (Slovenian Translation)
 * http://alfie.ist.org/[Gerfried Fuchs] (German Translation)
@@ -310,7 +311,7 @@ PGP.
 [[list_based_organizing]]
 ==== Organizing
 
-I've written a public domain link:extra/party-table.pl[perl script to
+I've written a public domain link:../extra/party-table.pl[perl script to
 generate the keysigning party list from an openPGP public keyring] for
 you to use. You can post this list on the web so that recipients can
 print it out, or you can bring copies to the party for everyone.
@@ -408,10 +409,10 @@ planning on traveling to.
 
 Here are some sample announcements:
 
-* link:extra/annc-example.html[PGP Keysigning Party Announcement Web
+* link:../extra/annc-example.html[PGP Keysigning Party Announcement Web
 Page]
-* link:extra/email-example.txt[PGP Keysigning Party Announcement E-Mail]
-* link:extra/press-release-example.txt[PGP Keysigning Party Announcement
+* link:../extra/email-example.txt[PGP Keysigning Party Announcement E-Mail]
+* link:../extra/press-release-example.txt[PGP Keysigning Party Announcement
 Press Release]
 
 [[prep]]
@@ -431,7 +432,7 @@ However, I recommend that you also generate a revocation certificate for
 your key in case you ever loose access to your secret key (i.e. loose
 your passphrase or loose your secret key). The instructions for
 generating a revocation certificate can be found in
-link:#generating_revocation_cert[section_title] of this document.
+xref:generating_revocation_cert[the section called “Generating a Revocation Certificate”] of this document.
 
 The step-by-step instructions below where written with best practice
 security (severe paranoia) in mind. For example:
@@ -597,7 +598,8 @@ gpg --list-secret-keys
 
 sec  1024D/C01BAFC3 2007-11-05 Demo User <demo@dublin.ie>
 ssb  4096g/7A4087F3 2007-11-05
-bash$ gpg --edit-key C01BAFC3
+
+gpg --edit-key C01BAFC3
 Command> help
 Command> adduid
 ......
@@ -743,7 +745,7 @@ do not have a long standing personal relationship with at all. Second, a
 signing policy can help others evaluate the quality of the signatures
 you have made on other's PGP keys.
 
-Here is an link:extra/signing_policy.html[example key signing policy]
+Here is an link:../extra/signing_policy.html[example key signing policy]
 for your reference.
 
 [[after_keysigning_party]]
@@ -862,7 +864,7 @@ format was written by Darxus and is also available under the terms of
 the GPL. In order to graph the web of trust you'll need to download
 Darxus' http://www.chaosreigns.com/code/sig2dot/sig2dot.pl[sig2dot.pl
 script] and the http://www.research.att.com/sw/tools/graphviz/[graphviz
-software] from AT&T Research or Darxus'
+software] from AT&amp;T Research or Darxus'
 http://www.chaosreigns.com/code/springgraph/[springgraph] perl code,
 which can graph in 3D. You may not be able to graph a web of trust with
 more than a few hundred nodes due to the amount of memory needed to
@@ -1207,7 +1209,7 @@ Generator (passgen)] (http://freshmeat.net/projects/passgen/[FreshMeat])
 and pathfinder (http://freshmeat.net/projects/wotsap/[FreshMeat])
 * http://www.chaosreigns.com/code/sig2dot/[Sig2dot]
 * http://www.chaosreigns.com/code/springgraph/[Springgraph]
-* http://www.research.att.com/sw/tools/graphviz/[The AT&T Labs-Research
+* http://www.research.att.com/sw/tools/graphviz/[The AT&amp;T Labs-Research
 Graphviz package]
 
 [[rfs]]
@@ -1227,10 +1229,10 @@ With Pretty Good Privacy]
 [[pictures]]
 === Pictures from keysinging parties
 
-* Gainesville, Florida, USA [link:extra/pgp_signing_party_3.jpg[1]]
-* San Francisco, California, USA [link:extra/pgp_signing_party_4.jpg[1]]
-* Israel [link:extra/pgp_signing_party_1.jpg[1]
-link:extra/pgp_signing_party_2.jpg[2]]
+* Gainesville, Florida, USA [link:../extra/pgp_signing_party_3.jpg[1]]
+* San Francisco, California, USA [link:../extra/pgp_signing_party_4.jpg[1]]
+* Israel [link:../extra/pgp_signing_party_1.jpg[1]
+link:../extra/pgp_signing_party_2.jpg[2]]
 
 == Glossary of Terms
 
@@ -1293,8 +1295,6 @@ changing the listed email address for example) or from adding new user
 ids.
 
 Signing Policy:: See __Key Signing Policy__.
-
-See also Key Signing Policy.
 
 Trust Path:: A route by which trust is extended from one entity to another. In PGP,
 this is a link of trust between two public keys.

@@ -24,7 +24,7 @@ This document describes the protocol and methods for holding and participating i
 
 === 什麼是信任網？
 
-所謂的信任網，是一個用來描述一群金鑰間信任關係的詞彙。每一份金鑰簽章都是一個鏈結，或者說是信任網中的一條繩索。這樣的鏈結又稱做信任路徑 (Trust Paths). 這種信任路徑可能會是雙向的，但也可能祇是單向而已。理想中的信任網應該要是任何人都與其他人雙向互相連結的；實際上每個人都相信每一把金鑰都確實屬於其持有者。信任網可以被當作是所有這種金鑰持有者間，信任路徑或鏈結的總和。讓我們舉一個實際看得見的例子，這兒就是我所屬的link:extra/wot.example.jpg[+[信任網關係圖]+]。 
+所謂的信任網，是一個用來描述一群金鑰間信任關係的詞彙。每一份金鑰簽章都是一個鏈結，或者說是信任網中的一條繩索。這樣的鏈結又稱做信任路徑 (Trust Paths). 這種信任路徑可能會是雙向的，但也可能祇是單向而已。理想中的信任網應該要是任何人都與其他人雙向互相連結的；實際上每個人都相信每一把金鑰都確實屬於其持有者。信任網可以被當作是所有這種金鑰持有者間，信任路徑或鏈結的總和。讓我們舉一個實際看得見的例子，這兒就是我所屬的link:../extra/wot.example.jpg[+[信任網關係圖]+]。 
 
 === 金鑰簽章的運用範例
 
@@ -68,9 +68,9 @@ This document describes the protocol and methods for holding and participating i
 
 以下是一些簡單的通告範例：
 
-      - link:extra/annc-example.html[PGP 金鑰簽署大會通告網頁]
-      - link:extra/email-example.txt[PGP 金鑰簽署大會通告電子郵件]
-      - link:extra/press-release-example.txt[PGP 金鑰簽署大會通告出版文宣]
+      - link:../extra/annc-example.html[PGP 金鑰簽署大會通告網頁]
+      - link:../extra/email-example.txt[PGP 金鑰簽署大會通告電子郵件]
+      - link:../extra/press-release-example.txt[PGP 金鑰簽署大會通告出版文宣]
 
 === 產生金鑰清單
 
@@ -81,7 +81,7 @@ This document describes the protocol and methods for holding and participating i
 | 992A4B3F | V. Alex Brennen <vab@cryptnet.net> | 0EC8 B0E3 052D FC4C 208F 76EB FA92 0973 992A 4B3F | 1024 | DSA |  |  | 
 |===
 
-我撰寫了一支 perl 腳本來從 gpg 鑰匙圈產生像這樣的 HTML 文件。link:extra/party-table.pl[這支用來產生金鑰簽署大會的金鑰清單的 perl 腳本]可以按照 GNU General Public License (GPL) 的授權內容任意使用。
+我撰寫了一支 perl 腳本來從 gpg 鑰匙圈產生像這樣的 HTML 文件。link:../extra/party-table.pl[這支用來產生金鑰簽署大會的金鑰清單的 perl 腳本]可以按照 GNU General Public License (GPL) 的授權內容任意使用。
 
 這份金鑰清單的副本應該被印出來交給每一位出席金鑰簽署大會的人。主持人可以多列印一些這份清單的副本，也可以把這份清單寄出去或放在網頁上，讓出席者能夠自己印出來。 
 
@@ -91,7 +91,7 @@ This document describes the protocol and methods for holding and participating i
 
 妳可以把這些資訊轉換成像 dot 檔案這種能夠餵給 dot 或 neato 這類繪圖程式的格式，然後輕易地把所有信任網中的金鑰跟簽章都建立成圖形。 Darxus 寫了一個 perl 腳本，能把鑰匙圈裡的金鑰跟簽章都轉換成 dot 格式的檔案，這個 perl 腳本也一樣地可以在 GPL 的授權下任意使用。為了要繪製出信任網，妳得下載 Darxus 的 http://www.chaosreigns.com/code/sig2dot/sig2dot.pl[sig2dot.pl] 腳本，並從 AT&amp;T; Research 下載 http://www.research.att.com/sw/tools/graphviz/[graphviz] 套件。由於執行這個腳本所需的記憶體數量限制，妳可能無法描繪出超過幾百個節點所構成的信任網。
 
-從 gpg 鑰匙圈繪製信任網的指引也包含在 sig2dot.pl 腳本裡了，不過妳也可以從 Debian 鑰匙圈繪製頁面找到。喏，這兒就是link:extra/wot.example.jpg[檢視信任網圖形的鏈結]，這個圖形就是由 sig2dot.pl 腳本和 neato 繪製程式所產生的。妳也可以在 http://www.chaosreigns.com/code/sig2dot/[Debian 金鑰繪製頁面] 找到更多資訊。
+從 gpg 鑰匙圈繪製信任網的指引也包含在 sig2dot.pl 腳本裡了，不過妳也可以從 Debian 鑰匙圈繪製頁面找到。喏，這兒就是link:../extra/wot.example.jpg[檢視信任網圖形的鏈結]，這個圖形就是由 sig2dot.pl 腳本和 neato 繪製程式所產生的。妳也可以在 http://www.chaosreigns.com/code/sig2dot/[Debian 金鑰繪製頁面] 找到更多資訊。
 
 == 參與大會
 
@@ -512,7 +512,7 @@ Web of Trust:: The collection of signatures upon keys and resultant <<trustpath,
 === Pictures from keysinging parties
 
 - Gainesville, Florida, USA
-- Isreal [link:extra/pgp_signing_party_1.jpg[1]][link:extra/pgp_signing_party_2.jpg[2]]
+- Isreal [link:../extra/pgp_signing_party_1.jpg[1]][link:../extra/pgp_signing_party_2.jpg[2]]
 
 == About This Document
 

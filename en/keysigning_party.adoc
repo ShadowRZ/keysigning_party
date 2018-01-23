@@ -136,7 +136,7 @@ The web of trust can be thought of as the sum of all the trust paths, or
 links, between all key holding parties. As a visual example, here is a
 graph of a web of trust that I belong to.
 
-image:.../extra/wot_example_small.jpg[An Example Web Of Trust Graph]
+image:../extra/wot_example_small.jpg[An Example Web Of Trust Graph]
 
 [[reason_for_keysigning_party]]
 === Why should I hold a Keysigning Party?

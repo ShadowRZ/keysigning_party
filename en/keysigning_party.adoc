@@ -5,6 +5,7 @@ V. Alex Brennen <vab@mit.edu>
 :sectanchors:
 :sectnums:
 :lang: en
+:icons: font
 
 [[about]]
 == About This Document
@@ -12,7 +13,7 @@ V. Alex Brennen <vab@mit.edu>
 [[general]]
 === General Information
 
-Copyright (c) 2000-2008 http://cryptnet.net/people/vab/[V. Alex Brennen]
+Copyright (C) 2000-2008 http://cryptnet.net/people/vab/[V. Alex Brennen]
 (http://cryptnet.net/people/vab/[VAB]).
 
 This document is hereby placed in the public domain.
@@ -464,7 +465,7 @@ sense of calm that you ohh so need to feel right now.
 version of gnupg, gnupg-x.x.x.tar.gz. Then download the detached PGP
 signature of that archive, gnupg-x.x.x.tar.gz.sig.
 
-Warning: Make sure you're running at least version 1.4.3 of GnuPG.
+WARNING: Make sure you're running at least version 1.4.3 of GnuPG.
 Versions prior to 1.4.3 had at least one significant security weakness
 in them.
 

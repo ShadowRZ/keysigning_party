@@ -1,0 +1,70 @@
+= 如何举办密钥签名会
+V. Alex Brennen <vab@mit.edu>; 布偶君 <23130178+ShadowRZ@users.noreply.github.com>
+v2.0.0
+:revdate: 2018-01-24
+:toc: left
+:sectanchors:
+:sectnums:
+:lang: zh-cn
+:icons: font
+
+== 关于此文档
+
+NOTE: 此文档的翻译处于未完成状态。
+
+=== 一般信息
+
+版权所有 (C) 2000-2008 http://cryptnet.net/people/vab/[V. Alex Brennen]
+(http://cryptnet.net/people/vab/[VAB]).
+
+此文档已置于公有领域。
+
+原文档存活于 http://cryptnet.net/fdp/crypto/keysigning_party/en/keysigning_party.html
+
+=== 翻译
+
+目前本文档只有以下几种语言版本：
+
+- [http://alfie.ist.org/projects/gpg-party/gpg-party.de.html[de]] German (http://cryptnet.net/fdp/crypto/gpg-party/gpg-party.de.html[Mirror])
+- [link:../en/keysigning_party.html[en]] English (link:../en/keysigning_party.xml[DocBook XML])
+- [http://members.fortunecity.com/keyparty/gpg-party.es.html[es]] Spanish (http://cryptnet.net/fdp/crypto/gpg-party/gpg-party.es.html[Mirror])
+- [http://www.gnupg.org/howtos/it/keysigning_party.html[it]] Italian (http://cryptnet.net/fdp/crypto/keysigning_party/it/keysigning_party.html[Mirror] [http://cryptnet.net/fdp/crypto/keysigning_party/it/keysigning_party.xml[DocBook XML]])
+- [http://ivlad.unixgods.net/gpg-party/gpg-party-howto-ru.html[ru]] Russian (http://cryptnet.net/fdp/crypto/gpg-party/gpg-party.html.ru[Mirror])
+- [http://neonatus.net/~neonatus/GPG/gpg-party-howto-si.html[si]] Slovenian (http://cryptnet.net/fdp/crypto/gpg-party/gpg-party.si.html[Mirror])
+- [http://www.zope.org.tw/Members/pwchi/Tech_Docs/pgp-party[zh-TW]] Traditional Chinese (http://cryptnet.net/fdp/crypto/gpg-party/gpg-party.zh-TW.html.euc-tw[Mirror])
+- [https://shadowrz.github.io/keysigning_party/zh-CN/keysigning_party.html[zh-CN]] Simplified Chinese
+
+如果你知道一个译文或者想把它翻译为另一个语言，请让我知道。这样我就可以发布或者链接到翻译的版本上。
+
+=== 贡献者
+
+- http://cryptnet.net/people/vab/[V. Alex Brennen] (Principal Author)
+- http://www.chaosreigns.com/[Darxus] (Graphing Code (sig2dot.pl &amp;
+sigtrace.pl))
+- http://neonatus.net/~neonatus/[Bostjan Muller] (Slovenian Translation)
+- http://alfie.ist.org/[Gerfried Fuchs] (German Translation)
+- http://members.fortunecity.com/keyparty/[Alex Bergonzini] (Spanish
+Translation)
+- mailto:cri@linux.it[Cristian Rigamonti] (Italian Translation)
+- http://ivlad.unixgods.net/[Vladimir Ivanov] (Russian Translation)
+- http://kalug.linux.org.tw/~chihchun/[chihchun],
+http://formosa.muds.net:7777/mt/[clotho], fetag,
+http://blog.elixus.org/jedi/[jedi], mailto:kcwu%5Bat%5Dcsie.org[kcwu],
+http://pwchi.info/[pwchi], and
+http://mafia.ee.ccu.edu.tw/~winfred/[winfred] (Traditional Chinese
+Translation)
+- 布偶君 (Simplified Chinese Translation)
+
+== 密钥签名会概览
+
+=== 什么是密钥签名会？
+
+密钥签名会，即指一群使用 PGP 加密系统的人，为了互相对彼此的密钥签名而会聚在一起。密钥签名会不但能大幅扩展信任网，也能提供机会，让人们讨论与强加密，个人自由，个人主权，甚至是使用加密技术或与日后自由加密软件的政治与社会议题。
+
+=== 什么又是密钥签名？
+
+密钥签名就是一种对附加在某个密钥上的公钥和用户ID进行签名的动作。这个动作用于验证给定的用户ID和公钥确实属于应该拥有密钥的人。更基本地说它用于验证用户ID表现的身份是合法的。通常这意味着当你签名他们的密钥时，PGP密钥上的名字与那个人呈现给你的身份一致。
+
+在PGP中“公钥”有两个意思。它可以指向一个密钥对的实际公开加密密钥或者一个密钥对的实际公开加密密钥及其所带有的签名加上用那个公钥自签名的任何加密子密钥。在文档中为避免混淆，我会用“公钥”来指代密钥、签名、和子密钥；我会用“公钥包（？）”来指代一个密钥对的加密公钥。
+
+你可以数字签名你自己的公钥和任何那个公钥上的关联的用户ID，或另一个人的公钥和关联的用户ID。自签名防止

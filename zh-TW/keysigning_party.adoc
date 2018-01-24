@@ -4,6 +4,8 @@ v1.0.8, 09 May 2003
 :toc: left
 :sectanchors:
 :sectnums:
+:lang: zh-tw
+:icons: font
 
 This document describes the protocol and methods for holding and participating in a PGP Key Signing party using the GNU PGP implementation, GnuPG. It gives an explanation of key signing protocols, answers frequently asked questions, and explains how to go about generating your own keys as well as signing other's keys.
 
@@ -516,7 +518,7 @@ Web of Trust:: The collection of signatures upon keys and resultant <<trustpath,
 
 == About This Document
 
-Copyright (c) 2000 - 2003 V. Alex Brennen.
+Copyright (C) 2000 - 2003 V. Alex Brennen.
 
 Permission is granted to copy, distribute and/or modify this document under the terms of the https://www.gnu.org/licenses/old-licenses/fdl-1.1.html[GNU Free Documentation License, Version 1.1] or any later version published by the Free Software Foundation.
 

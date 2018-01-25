@@ -569,3 +569,7 @@ http://neonatus.net/~neonatus/[Bostjan Muller] (Slovenian Translation)
 http://alfie.ist.org/[Gerfried Fuchs] (German Translation)
 
 http://kalug.linux.org.tw/~chihchun/[chihchun] http://formosa.muds.net:7777/mt/[clotho] fetag http://blog.elixus.org/jedi/[Jedi] mailto:kcwu@csie.org[kcwu] http://pwchi.info/[pwchi] http://mafia.ee.ccu.edu.tw/~winfred/[winfred] (Traditional Chinese Translation) 
+
+// Local Variables:
+// mode: adoc
+// End:

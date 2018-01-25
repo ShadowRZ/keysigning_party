@@ -137,6 +137,7 @@ The web of trust can be thought of as the sum of all the trust paths, or
 links, between all key holding parties. As a visual example, here is a
 graph of a web of trust that I belong to.
 
+.An Example Web Of Trust Graph
 image:../extra/wot_example_small.jpg[An Example Web Of Trust Graph]
 
 [[reason_for_keysigning_party]]
@@ -1303,3 +1304,7 @@ this is a link of trust between two public keys.
 Web of Trust:: The collection of signatures upon keys and resultant trust paths in a
 user centric trust model which provide for authentication. Collectively,
 the trust relationships between a group of keys.
+
+// Local Variables:
+// mode: adoc
+// End:

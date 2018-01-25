@@ -436,7 +436,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author2" class="author">布偶君</span><br>
 <span id="email2" class="email"><a href="mailto:23130178+ShadowRZ@users.noreply.github.com">23130178+ShadowRZ@users.noreply.github.com</a></span><br>
 <span id="revnumber">version 2.0.0,</span>
-<span id="revdate">2018-01-24</span>
+<span id="revdate">2018-01-25</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -452,6 +452,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_什么是密钥签名会">2.1. 什么是密钥签名会？</a></li>
 <li><a href="#_什么又是密钥签名">2.2. 什么又是密钥签名？</a></li>
+<li><a href="#_什么是信任网">2.3. 什么是信任网</a></li>
+<li><a href="#_为什么举办密钥签名会">2.4. 为什么举办密钥签名会？</a></li>
+<li><a href="#_你能告诉我为什么要举办它的实例">2.5. 你能告诉我为什么要举办它的实例？</a></li>
 </ul>
 </li>
 </ul>
@@ -577,6 +580,18 @@ Translation)</p>
 </div>
 <div class="sect2">
 <h3 id="_什么又是密钥签名"><a class="anchor" href="#_什么又是密钥签名"></a>2.2. 什么又是密钥签名？</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+本段未完成
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>密钥签名就是一种对附加在某个密钥上的公钥和用户ID进行签名的动作。这个动作用于验证给定的用户ID和公钥确实属于应该拥有密钥的人。更基本地说它用于验证用户ID表现的身份是合法的。通常这意味着当你签名他们的密钥时，PGP密钥上的名字与那个人呈现给你的身份一致。</p>
 </div>
@@ -584,7 +599,53 @@ Translation)</p>
 <p>在PGP中“公钥”有两个意思。它可以指向一个密钥对的实际公开加密密钥或者一个密钥对的实际公开加密密钥及其所带有的签名加上用那个公钥自签名的任何加密子密钥。在文档中为避免混淆，我会用“公钥”来指代密钥、签名、和子密钥；我会用“公钥包（？）”来指代一个密钥对的加密公钥。</p>
 </div>
 <div class="paragraph">
-<p>你可以数字签名你自己的公钥和任何那个公钥上的关联的用户ID，或另一个人的公钥和关联的用户ID。自签名防止</p>
+<p>你可以数字签名你自己的公钥和任何那个公钥上的关联的用户ID，或另一个人的公钥和关联的用户ID。自签名防止对抗者在你的密钥公开存储或被传输时向公钥添加假冒的加密或签名密钥。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_什么是信任网"><a class="anchor" href="#_什么是信任网"></a>2.3. 什么是信任网</h3>
+<div class="paragraph">
+<p>信任网是是一个用于描述一组密钥的信任关系的名词。一个密钥签名是信任网的一个连接，或者（如果你愿意）是一串（？)。这些连接叫做“信任路径”。信任路径可以双向或单向。理想的信任网是一个每个人都互相（双向？）连接。这样一来每人都相信每个密钥确实属于他的所有者。信任网可以看作是所有密钥持有者间，信任路径或连接总和。举一个实际例子，这是我所属的信任网关系图：</p>
+</div>
+<div class="paragraph">
+<div class="title">An Example Web Of Trust Graph</div>
+<p><span class="image"><img src="../extra/wot_example_small.jpg" alt="An Example Web Of Trust Graph"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_为什么举办密钥签名会"><a class="anchor" href="#_为什么举办密钥签名会"></a>2.4. 为什么举办密钥签名会？</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+本段未完成
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>举办尽可能多的密钥签名会有三个主要原因。</p>
+</div>
+<div class="paragraph">
+<p>第一点，可能也是最重要的一点，就是你应该举办尽可能多的密钥签名会来扩展信任网。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_你能告诉我为什么要举办它的实例"><a class="anchor" href="#_你能告诉我为什么要举办它的实例"></a>2.5. 你能告诉我为什么要举办它的实例？</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+等待填坑中
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -593,7 +654,7 @@ Translation)</p>
 <div id="footer">
 <div id="footer-text">
 Version 2.0.0<br>
-Last updated 2018-01-24 19:40:54 CST
+Last updated 2018-01-25 21:18:51 CST
 </div>
 </div>
 </body>

@@ -467,8 +467,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_把妳的金鑰送到金鑰伺服器">3.6. 把妳的金鑰送到金鑰伺服器</a></li>
 <li><a href="#_製作一份撤銷憑證">3.7. 製作一份撤銷憑證</a></li>
 <li><a href="#_簽署其他的金鑰">3.8. 簽署其他的金鑰</a></li>
-<li><a href="#_第一步_取得金鑰副本">3.9. 第一步：取得金鑰副本</a></li>
-<li><a href="#_撤銷妳的金鑰對">3.10. 撤銷妳的金鑰對</a></li>
+<li><a href="#_撤銷妳的金鑰對">3.9. 撤銷妳的金鑰對</a></li>
 </ul>
 </li>
 <li><a href="#_glossary_of_terms">4. Glossary of Terms</a></li>
@@ -802,8 +801,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>gpg --verify gnupg-x.x.x.tar.gz.sig gnupg-x.x.x.tar.gz
-md5sum gnupg-x.x.x.tar.gz</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ gpg --verify gnupg-x.x.x.tar.gz.sig gnupg-x.x.x.tar.gz
+$ md5sum gnupg-x.x.x.tar.gz</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -811,14 +810,14 @@ md5sum gnupg-x.x.x.tar.gz</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>tar xvzf gnupg-x.x.x.tar.gz
-cd gnupg-x.x.x
-./configure
-make
-su
-make install
-exit
-cd</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ tar xvzf gnupg-x.x.x.tar.gz
+$ cd gnupg-x.x.x
+$ ./configure
+$ make
+$ su
+# make install
+# exit
+$ cd</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -829,7 +828,7 @@ cd</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>/sbin/mkfs.ext2 /dev/fd0</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console"># /sbin/mkfs.ext2 /dev/fd0</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -837,8 +836,8 @@ cd</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>mount /mnt/floppy
-mkdir /mnt/floppy/.gnupg</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console"># mount /mnt/floppy
+# mkdir /mnt/floppy/.gnupg</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -846,7 +845,7 @@ mkdir /mnt/floppy/.gnupg</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>chown &lt;your_uid&gt;:&lt;your_gid&gt; /mnt/floppy/.gnupg</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console"># chown $your_uid:$your_gid /mnt/floppy/.gnupg</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -854,7 +853,7 @@ mkdir /mnt/floppy/.gnupg</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>chown &lt;your_uid&gt;:&lt;your_gid&gt; /mnt/floppy/.gnupg</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console"># chown $your_uid:$your_gid /mnt/floppy/.gnupg</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -862,7 +861,7 @@ mkdir /mnt/floppy/.gnupg</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>gpg --gen-key</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ gpg --gen-key</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -870,11 +869,11 @@ mkdir /mnt/floppy/.gnupg</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>Please select what kind of key you want:
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">Please select what kind of key you want:
 (1) DSA and ElGamal (default)
 (2) DSA (sign only)
 (4) ElGamal (sign and encrypt)
-Your selection? &lt;return&gt;</pre>
+Your selection? &lt;return&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -882,13 +881,13 @@ Your selection? &lt;return&gt;</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>DSA keypair will have 1024 bits.
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">DSA keypair will have 1024 bits.
 About to generate a new ELG-E keypair.
 minimum keysize is 768 bits
 default keysize is 1024 bits
 highest suggested keysize is 2048 bits
 What keysize do you want? (1024) 2048&lt;return&gt;
-Do you really need such a large keysize? yes&lt;return&gt;</pre>
+Do you really need such a large keysize? yes&lt;return&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -896,7 +895,7 @@ Do you really need such a large keysize? yes&lt;return&gt;</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>Requested keysize is 2048 bits
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">Requested keysize is 2048 bits
 Please specify how long the key should be valid.
 0 = key does not expire
 &lt;n&gt; = key expires in n days
@@ -905,7 +904,7 @@ Please specify how long the key should be valid.
 &lt;n&gt;y = key expires in n years
 Key is valid for? (0) 5y&lt;return&gt;
 Key expires at Sun Sep 21 16:17:15 2005 EDT
-Is this correct (y/n)? y&lt;return&gt;</pre>
+Is this correct (y/n)? y&lt;return&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -913,13 +912,13 @@ Is this correct (y/n)? y&lt;return&gt;</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>Real name: Demo User&lt;return&gt;
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">Real name: Demo User&lt;return&gt;
 Email address: demo@nonexistent.nowhere&lt;return&gt;
 Comment:
 You selected this USER-ID:
 "Demo User &lt;demo@nonexistent.nowhere&gt;"
 
-Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O&lt;return&gt;</pre>
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O&lt;return&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -933,16 +932,17 @@ Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O&lt;return&gt;</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>gpg --list-secret-keys
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ gpg --list-secret-keys
 
 sec 1024D/C01BAFC3 2000-09-21 Demo User &lt;demo@nonexistent.nowhere&gt;
 ssb 2048g/7A4087F3 2000-09-21
 
-gpg --edit-key C01BAFC3
+$ gpg --edit-key C01BAFC3
+
 Command&gt; help
 Command&gt; adduid
 ......
-Command&gt; save</pre>
+Command&gt; save</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -950,7 +950,7 @@ Command&gt; save</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>gpg --keyserver &lt;keyserver&gt; --send-key &lt;Your_Key_ID&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">gpg --keyserver &lt;keyserver&gt; --send-key &lt;Your_Key_ID&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -958,7 +958,7 @@ Command&gt; save</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>gpg: success sending to `&lt;keyserver&gt;' (status=200)</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">gpg: success sending to `&lt;keyserver&gt;' (status=200)</code></pre>
 </div>
 </div>
 </div>
@@ -993,7 +993,7 @@ Command&gt; save</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>gpg --output revcert.asc --gen-revoke &lt;key_id&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ gpg --output revcert.asc --gen-revoke &lt;key_id&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1001,7 +1001,7 @@ Command&gt; save</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>gpg --fingerprint &lt;Your_Key_ID&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ gpg --fingerprint &lt;Your_Key_ID&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1009,7 +1009,7 @@ Command&gt; save</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>umount /mnt/floppy</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console"># umount /mnt/floppy</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1021,16 +1021,15 @@ Command&gt; save</pre>
 </div>
 <div class="sect2">
 <h3 id="_簽署其他的金鑰"><a class="anchor" href="#_簽署其他的金鑰"></a>3.8. 簽署其他的金鑰</h3>
-
+<div class="paragraph">
+<p>第一步：取得金鑰副本</p>
 </div>
-<div class="sect2">
-<h3 id="_第一步_取得金鑰副本"><a class="anchor" href="#_第一步_取得金鑰副本"></a>3.9. 第一步：取得金鑰副本</h3>
 <div class="paragraph">
 <p>通常妳得從金鑰伺服器取得。不過如果妳正要簽署某把不在金鑰伺服器上的金鑰時，妳可以用 gpg --import 來把這把金鑰匯入到妳的鑰匙圈。如果妳可以接通金鑰伺服器的話，下列的命令將會把金鑰從金鑰伺服器上下載到妳的公鑰鑰匙圈裡。</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>gpg --keyserver &lt;keyserver&gt; --recv-keys &lt;Key_ID&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ gpg --keyserver &lt;keyserver&gt; --recv-keys &lt;Key_ID&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1041,7 +1040,7 @@ Command&gt; save</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>gpg --fingerprint &lt;Key_ID&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ gpg --fingerprint &lt;Key_ID&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1052,7 +1051,7 @@ Command&gt; save</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>gpg --sign-key &lt;Key_ID&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ gpg --sign-key &lt;Key_ID&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1060,7 +1059,7 @@ Command&gt; save</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>gpg --default-key &lt;Key_to_use&gt; --sign-key &lt;Key_ID&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ gpg --default-key &lt;Key_to_use&gt; --sign-key &lt;Key_ID&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1068,7 +1067,7 @@ Command&gt; save</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>gpg --version</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ gpg --version</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1082,7 +1081,7 @@ Command&gt; save</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>gpg --keyserver &lt;keyserver&gt; --send-key &lt;Key_ID&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ gpg --keyserver &lt;keyserver&gt; --send-key &lt;Key_ID&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1090,7 +1089,7 @@ Command&gt; save</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>gpg: success sending to `&lt;keyserver&gt;' (status=200)</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">gpg: success sending to `&lt;keyserver&gt;' (status=200)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1098,7 +1097,7 @@ Command&gt; save</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_撤銷妳的金鑰對"><a class="anchor" href="#_撤銷妳的金鑰對"></a>3.10. 撤銷妳的金鑰對</h3>
+<h3 id="_撤銷妳的金鑰對"><a class="anchor" href="#_撤銷妳的金鑰對"></a>3.9. 撤銷妳的金鑰對</h3>
 <div class="paragraph">
 <p>當妳懷疑妳的秘密金鑰已經被洩漏的時候，妳就應該要馬上撤銷妳的公開金鑰。金鑰撤銷需要用到公開金鑰的撤銷憑證。金鑰的撤銷代表著這把金鑰不再有效（安全）而且不應該被繼續使用。一旦撤銷憑證被提出了，就不能反悔。</p>
 </div>
@@ -1110,7 +1109,7 @@ Command&gt; save</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>gpg --output revcert.asc --gen-revoke &lt;key_id&gt;</pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ gpg --output revcert.asc --gen-revoke &lt;key_id&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1549,8 +1548,11 @@ Command&gt; save</pre>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.8<br>
-Last updated 2018-01-25 20:53:23 CST
+Last updated 2018-02-28 19:11:39 CST
 </div>
 </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlighting()</script>
 </body>
 </html>

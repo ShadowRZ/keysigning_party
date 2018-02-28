@@ -6,6 +6,7 @@ v1.0.8, 09 May 2003
 :sectnums:
 :lang: zh-tw
 :icons: font
+:source-highlighter: highlightjs
 
 This document describes the protocol and methods for holding and participating in a PGP Key Signing party using the GNU PGP implementation, GnuPG. It gives an explanation of key signing protocols, answers frequently asked questions, and explains how to go about generating your own keys as well as signing other's keys.
 
@@ -26,7 +27,7 @@ This document describes the protocol and methods for holding and participating i
 
 === 什麼是信任網？
 
-所謂的信任網，是一個用來描述一群金鑰間信任關係的詞彙。每一份金鑰簽章都是一個鏈結，或者說是信任網中的一條繩索。這樣的鏈結又稱做信任路徑 (Trust Paths). 這種信任路徑可能會是雙向的，但也可能祇是單向而已。理想中的信任網應該要是任何人都與其他人雙向互相連結的；實際上每個人都相信每一把金鑰都確實屬於其持有者。信任網可以被當作是所有這種金鑰持有者間，信任路徑或鏈結的總和。讓我們舉一個實際看得見的例子，這兒就是我所屬的link:../extra/wot.example.jpg[+[信任網關係圖]+]。 
+所謂的信任網，是一個用來描述一群金鑰間信任關係的詞彙。每一份金鑰簽章都是一個鏈結，或者說是信任網中的一條繩索。這樣的鏈結又稱做信任路徑 (Trust Paths). 這種信任路徑可能會是雙向的，但也可能祇是單向而已。理想中的信任網應該要是任何人都與其他人雙向互相連結的；實際上每個人都相信每一把金鑰都確實屬於其持有者。信任網可以被當作是所有這種金鑰持有者間，信任路徑或鏈結的總和。讓我們舉一個實際看得見的例子，這兒就是我所屬的link:../extra/wot.example.jpg[+[信任網關係圖]+]。
 
 === 金鑰簽章的運用範例
 
@@ -80,12 +81,12 @@ This document describes the protocol and methods for holding and participating i
 
 |===
 | 金鑰 ID | 金鑰持有人 | 金鑰指紋 | 金鑰尺寸 | 金鑰種類 | 金鑰資訊是否吻合? | 持有人身份是否吻合?
-| 992A4B3F | V. Alex Brennen <vab@cryptnet.net> | 0EC8 B0E3 052D FC4C 208F 76EB FA92 0973 992A 4B3F | 1024 | DSA |  |  | 
+| 992A4B3F | V. Alex Brennen <vab@cryptnet.net> | 0EC8 B0E3 052D FC4C 208F 76EB FA92 0973 992A 4B3F | 1024 | DSA |  |  |
 |===
 
 我撰寫了一支 perl 腳本來從 gpg 鑰匙圈產生像這樣的 HTML 文件。link:../extra/party-table.pl[這支用來產生金鑰簽署大會的金鑰清單的 perl 腳本]可以按照 GNU General Public License (GPL) 的授權內容任意使用。
 
-這份金鑰清單的副本應該被印出來交給每一位出席金鑰簽署大會的人。主持人可以多列印一些這份清單的副本，也可以把這份清單寄出去或放在網頁上，讓出席者能夠自己印出來。 
+這份金鑰清單的副本應該被印出來交給每一位出席金鑰簽署大會的人。主持人可以多列印一些這份清單的副本，也可以把這份清單寄出去或放在網頁上，讓出席者能夠自己印出來。
 
 === 繪製信任網關係圖
 
@@ -111,8 +112,8 @@ This document describes the protocol and methods for holding and participating i
 
 === 該帶什麼去會場
 
-. 自己 ─ 妳可不能以虛擬的形式出現在這場大會上 
-. 兩種確實存在且附有照片的身份證件 ─ 駕照跟護照會是很好的選擇 
+. 自己 ─ 妳可不能以虛擬的形式出現在這場大會上
+. 兩種確實存在且附有照片的身份證件 ─ 駕照跟護照會是很好的選擇
 . 金鑰 ID ，金鑰類別，十六進位的金鑰指紋以及金鑰尺寸資訊，或者是一份驗證過的金鑰清單副本
 . 一枝筆/鉛筆
 
@@ -150,73 +151,82 @@ This document describes the protocol and methods for holding and participating i
 
 1) 到 www.gnupg.org 並下載最新版的 gnupg: gnupg-x.x.x.tar.gz
 
-WARNING: 請確定妳至少正在執行 1.0.6 版以後的 GnuPG 。 1.0.6 版以前的版本至少有一個顯著的安全性弱點。 
+WARNING: 請確定妳至少正在執行 1.0.6 版以後的 GnuPG 。 1.0.6 版以前的版本至少有一個顯著的安全性弱點。
 
 2) 檢查 GnuPG 壓縮檔的 PGP 簽章和 MD5 加總檢查：
 
+[source,console]
 ----
-gpg --verify gnupg-x.x.x.tar.gz.sig gnupg-x.x.x.tar.gz
-md5sum gnupg-x.x.x.tar.gz
+$ gpg --verify gnupg-x.x.x.tar.gz.sig gnupg-x.x.x.tar.gz
+$ md5sum gnupg-x.x.x.tar.gz
 ----
 
 3) 解開壓縮檔、進行組態、編譯然後加以安裝：
 
+[source,console]
 ----
-tar xvzf gnupg-x.x.x.tar.gz
-cd gnupg-x.x.x
-./configure
-make
-su
-make install
-exit
-cd
+$ tar xvzf gnupg-x.x.x.tar.gz
+$ cd gnupg-x.x.x
+$ ./configure
+$ make
+$ su
+# make install
+# exit
+$ cd
 ----
 
-如果妳安裝 GnuPG 的系統會跟其他人共用的話，妳也許也會想要對 gpg 執行 setuid root 來讓它使用安全的記憶體。如果妳選擇要這麼做，那麼妳就應該預先警惕到可能的危險，並且用 md5 簽章跟 pgp 簽章來檢查妳手上的壓縮檔，以確保妳沒有安裝到被裝殖了特洛伊木馬的程式。 
+如果妳安裝 GnuPG 的系統會跟其他人共用的話，妳也許也會想要對 gpg 執行 setuid root 來讓它使用安全的記憶體。如果妳選擇要這麼做，那麼妳就應該預先警惕到可能的危險，並且用 md5 簽章跟 pgp 簽章來檢查妳手上的壓縮檔，以確保妳沒有安裝到被裝殖了特洛伊木馬的程式。
 
 4) 拿一片準備用來存放妳的金鑰的磁片，並且先加以格式化。
 
+[source,console]
 ----
-/sbin/mkfs.ext2 /dev/fd0
+# /sbin/mkfs.ext2 /dev/fd0
 ----
 
 4a) 把軟碟掛上並在上面建立一個屬於妳的目錄，用來存放妳的金鑰：
 
+[source,console]
 ----
-mount /mnt/floppy
-mkdir /mnt/floppy/.gnupg
+# mount /mnt/floppy
+# mkdir /mnt/floppy/.gnupg
 ----
 
 有需要的話（依照妳系統上的 fd0 存取而異）：
 
+[source,console]
 ----
-chown <your_uid>:<your_gid> /mnt/floppy/.gnupg 
+# chown $your_uid:$your_gid /mnt/floppy/.gnupg
 ----
 
 4b) 從妳的家目錄建立一個指向軟碟的符號鏈結
 
+[source,console]
 ----
-chown <your_uid>:<your_gid> /mnt/floppy/.gnupg 
+# chown $your_uid:$your_gid /mnt/floppy/.gnupg
 ----
 
 5) 打造妳的 gnupg 金鑰
 
+[source,console]
 ----
-gpg --gen-key
+$ gpg --gen-key
 ----
 
 5a) 選擇妳想要使用的金鑰類別 ─ 用預設值就好了。
 
+[source,console]
 ----
 Please select what kind of key you want:
 (1) DSA and ElGamal (default)
 (2) DSA (sign only)
 (4) ElGamal (sign and encrypt)
-Your selection? <return> 
+Your selection? <return>
 ----
 
 5b)選擇妳的金鑰尺寸： 2048
 
+[source,console]
 ----
 DSA keypair will have 1024 bits.
 About to generate a new ELG-E keypair.
@@ -224,11 +234,12 @@ minimum keysize is 768 bits
 default keysize is 1024 bits
 highest suggested keysize is 2048 bits
 What keysize do you want? (1024) 2048<return>
-Do you really need such a large keysize? yes<return> 
+Do you really need such a large keysize? yes<return>
 ----
 
 5c) 選擇這把金鑰的壽命： 5 年會是個好選擇
 
+[source,console]
 ----
 Requested keysize is 2048 bits
 Please specify how long the key should be valid.
@@ -244,6 +255,7 @@ Is this correct (y/n)? y<return>
 
 5d) 輸入妳的姓名跟電子郵件地址…
 
+[source,console]
 ----
 Real name: Demo User<return>
 Email address: demo@nonexistent.nowhere<return>
@@ -251,7 +263,7 @@ Comment:
 You selected this USER-ID:
 "Demo User <demo@nonexistent.nowhere>"
 
-Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O<return> 
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O<return>
 ----
 
 5e) 選擇一個密碼串。妳得仔細挑一個纔行。這個密碼串應該要夠長而且要難以被猜到纔行。同時這還應該是妳將不會忘記的東西。如果妳忘記了妳的密碼串的話，將會無法回復妳的金鑰。
@@ -260,27 +272,31 @@ Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O<return>
 
 6) 任意修改你的金鑰。舉例來說，如果妳有很多個電子郵件地址的話，妳可能就會想要把她們都列進金鑰裡的有效電子郵件地址：
 
+[source,console]
 ----
-gpg --list-secret-keys
+$ gpg --list-secret-keys
 
 sec 1024D/C01BAFC3 2000-09-21 Demo User <demo@nonexistent.nowhere>
 ssb 2048g/7A4087F3 2000-09-21
 
-gpg --edit-key C01BAFC3
+$ gpg --edit-key C01BAFC3
+
 Command> help
 Command> adduid
 ......
-Command> save 
+Command> save
 ----
 
 7) 把妳的金鑰送到金鑰伺服器上：
 
+[source,console]
 ----
 gpg --keyserver <keyserver> --send-key <Your_Key_ID>
 ----
 
 妳應該可以看到一個像這樣的成功訊息：
 
+[source,console]
 ----
 gpg: success sending to `<keyserver>' (status=200)
 ----
@@ -305,20 +321,23 @@ xref:_撤銷妳的金鑰對[3.9] 節裡面有更多關於金鑰撤銷的資訊�
 
 製作撤銷憑證的 GnuPG 命令是：
 
+[source,console]
 ----
-gpg --output revcert.asc --gen-revoke <key_id>
+$ gpg --output revcert.asc --gen-revoke <key_id>
 ----
 
 9) 把妳的資訊寄給主持人，並且告訴她妳將會出席這場金鑰簽署大會。如果妳正在使用金鑰伺服器的話，下列的命令會把妳所需要寄給主持人的資訊印出來。妳可以用一封加密過的電子郵件把這個資訊寄給主持人。
 
+[source,console]
 ----
-gpg --fingerprint <Your_Key_ID>
+$ gpg --fingerprint <Your_Key_ID>
 ----
 
 10) 解除軟碟掛載並取出：
 
+[source,console]
 ----
-umount /mnt/floppy
+# umount /mnt/floppy
 ----
 
 注意：為了安全起見妳還可以把軟碟帶在身邊，或把它放在可靠、上鎖了的書桌抽屜等。妳*最好別*讓妳可被網際網路存取的 .gnupg 目錄裡含有妳的金鑰。
@@ -327,40 +346,45 @@ umount /mnt/floppy
 
 === 簽署其他的金鑰
 
-### 第一步：取得金鑰副本
+第一步：取得金鑰副本
 
 通常妳得從金鑰伺服器取得。不過如果妳正要簽署某把不在金鑰伺服器上的金鑰時，妳可以用 gpg --import 來把這把金鑰匯入到妳的鑰匙圈。如果妳可以接通金鑰伺服器的話，下列的命令將會把金鑰從金鑰伺服器上下載到妳的公鑰鑰匙圈裡。
 
+[source,console]
 ----
-gpg --keyserver <keyserver> --recv-keys <Key_ID>
+$ gpg --keyserver <keyserver> --recv-keys <Key_ID>
 ----
 
 如果妳得到讀取錯誤的訊息，這就表示金鑰伺服器負荷過重了。請在幾秒鐘後再試一遍。
 
 第二步：指紋和驗證金鑰
 
+[source,console]
 ----
-gpg --fingerprint <Key_ID> 
+$ gpg --fingerprint <Key_ID>
 ----
 
 GPG 會印出 <Key_ID> 這把金鑰（就是妳剛剛下載金鑰）的指紋。請用妳在大會所取得的檢核表來檢查這裡出現的指紋。注意： 不要用網頁上的指紋來檢查檢核表上的指紋，因為伺服器傳給妳的金鑰有可能跟在網頁上顯示的並非同一把。
 
 第三步：簽署金鑰
 
+[source,console]
 ----
-gpg --sign-key <Key_ID>
+$ gpg --sign-key <Key_ID>
 ----
 
 如果妳有多把私秘金鑰的話，妳可以像這樣祇訂要用哪一把私秘金鑰來簽署其他人的公開金鑰：
 
+[source,console]
 ----
-gpg --default-key <Key_to_use> --sign-key <Key_ID>
+$ gpg --default-key <Key_to_use> --sign-key <Key_ID>
 ----
 
 如果妳沒辦法處理 RSA 金鑰的話，可能是妳的 gnupg 版本太舊了。 1.0.3 版以前的 GnuPG 並不包含 RSA 支援。注意：如果妳的發行商用套件管理軟體裝了舊版的話，妳得先把它反安裝再安裝新版。妳可以執行這樣的指令來檢查版本：
 
+[source,console]
 ----
-gpg --version
+$ gpg --version
 ----
 
 第四步：傳回或上傳已簽署的金鑰
@@ -369,12 +393,14 @@ gpg --version
 
 通常妳可以連上金鑰伺服器。如果妳正是在這種狀況中的話，就可以像這樣把已簽署的金鑰送回金鑰伺服器：
 
+[source,console]
 ----
-gpg --keyserver <keyserver> --send-key <Key_ID>
+$ gpg --keyserver <keyserver> --send-key <Key_ID>
 ----
 
 妳應該會看到一個像這樣的成功訊息：
 
+[source,console]
 ----
 gpg: success sending to `<keyserver>' (status=200)
 ----
@@ -389,8 +415,9 @@ gpg: success sending to `<keyserver>' (status=200)
 
 讓我們複習一下，製作撤銷憑證的 gpg 命令是：
 
+[source,console]
 ----
-gpg --output revcert.asc --gen-revoke <key_id>
+$ gpg --output revcert.asc --gen-revoke <key_id>
 ----
 
 如果妳知道妳的金鑰甚麼時候或者是怎麼被洩漏的話，那麼就算妳在打造金鑰時就製作過撤銷憑證，妳還是會想要再重新製作新的撤銷憑證，來撤銷妳的金鑰對。因為在這個情況下， OpenPGP 標準會讓妳指定為什麼要撤銷金鑰對的原因，甚至讓妳自由輸入一些註解來說明這個撤銷原因。當撤銷憑證跟這些資訊一起流傳的時候，顯然會對金鑰打造期間的一般性憑證更為有益且合宜。
@@ -440,7 +467,7 @@ Secret Keyring:: A collection of secret keys. Most often this term is used in re
 Trust Path:: A route by which trust is extended from one entity to another. In PGP, this is a link of trust between two public keys.
 
 [[weboftrust]]
-Web of Trust:: The collection of signatures upon keys and resultant <<trustpath,trust paths>> in a user centric trust model which provide for authentication. Collectively, the trust relationships between a group of keys. 
+Web of Trust:: The collection of signatures upon keys and resultant <<trustpath,trust paths>> in a user centric trust model which provide for authentication. Collectively, the trust relationships between a group of keys.
 
 == Relevant Information and Sources for More Information
 
@@ -554,7 +581,7 @@ This document is currently only available in the following languages:
 
 [http://neonatus.net/~neonatus/GPG/index.html[si]] Slovenian (link:keysign-party-1.0.8-si.html[Local Mirror])
 
-[http://www.zope.org.tw/Members/pwchi/Tech_Docs/pgp-party[zh-TW]] Traditional Chinese (link:.[Local Mirror]) 
+[http://www.zope.org.tw/Members/pwchi/Tech_Docs/pgp-party[zh-TW]] Traditional Chinese (link:.[Local Mirror])
 
 If you know of a translation or would like to translate it to another language please let me know so that I can distribute or link to the translated versions.
 
@@ -568,7 +595,7 @@ http://neonatus.net/~neonatus/[Bostjan Muller] (Slovenian Translation)
 
 http://alfie.ist.org/[Gerfried Fuchs] (German Translation)
 
-http://kalug.linux.org.tw/~chihchun/[chihchun] http://formosa.muds.net:7777/mt/[clotho] fetag http://blog.elixus.org/jedi/[Jedi] mailto:kcwu@csie.org[kcwu] http://pwchi.info/[pwchi] http://mafia.ee.ccu.edu.tw/~winfred/[winfred] (Traditional Chinese Translation) 
+http://kalug.linux.org.tw/~chihchun/[chihchun] http://formosa.muds.net:7777/mt/[clotho] fetag http://blog.elixus.org/jedi/[Jedi] mailto:kcwu@csie.org[kcwu] http://pwchi.info/[pwchi] http://mafia.ee.ccu.edu.tw/~winfred/[winfred] (Traditional Chinese Translation)
 
 // Local Variables:
 // mode: adoc
